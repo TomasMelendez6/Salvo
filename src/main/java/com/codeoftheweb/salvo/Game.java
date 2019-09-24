@@ -4,26 +4,28 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
-public class Player {
+public class Game {
     //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
-    private long id;        //los tres @ hacen que el id sea auto generado con la instanciacion
+    private long id;
+    private Date creationDate;
 
-    private String userName;
+    @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
+    private Set<GamePlayer> gamePlayers;
 
-    @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
-    Set<GamePlayer> gamePlayers;
-    //Constructores
-    public Player() {
+    //Constructor
+
+    public Game() {
     }
 
-    public Player(String userName) {
-        this.userName = userName;
+    public Game(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     //Getters
@@ -31,22 +33,17 @@ public class Player {
         return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public Date getCreationDate() {
+        return creationDate;
     }
-
     @JsonIgnore
     public Set<GamePlayer> getGamePlayers() {
         return gamePlayers;
     }
 
-    //Setters
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    //Motodos
+    //Metodos
     public void addGamePlayer(GamePlayer gamePlayer) {
         gamePlayers.add(gamePlayer);
     }
+
 }
