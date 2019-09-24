@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -22,30 +20,38 @@ public class SalvoRestController {
     @Autowired
     private GamePlayerRepository gamePlayerRepo;
 
-    /*
     @RequestMapping("/games")
-    public List<Long> getAllGames() {
+    public List<Map<String, Object>> getAllGames() {
         return gameRepo.findAll()
                 .stream()
-                .map(game -> game.getId())
+                .map(game -> makeGameDTO(game))
                 .collect(Collectors.toList());
     }
-*/
-    /*
-    @RequestMapping("/games")
-    public Map<Long, Date> getAllGames() {
-        return {gameRepo.findAll()
-                .stream()
-                .map(game -> game.getId())
-                .collect(Collectors.toList()),
-                gameRepo.findAll()
-                        .stream()
-                        .map(game -> game.getCreationDate())
-                        .collect(Collectors.toList())
-        };
+
+    private Map<String, Object> makeGameDTO(Game game){
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        dto.put("id:", game.getId());
+        dto.put("Date:", game.getCreationDate());
+        dto.put("gamePlayer:", getAllGamePlayers(game.getGamePlayers()));
+        return dto;
     }
 
-     */
+    private List<Map<String, Object>> getAllGamePlayers(Set<GamePlayer> gamePlayers){
+        return gamePlayers
+                .stream()
+                .map(gamePlayer -> makeGamePlayerDTO(gamePlayer))
+                .collect(Collectors.toList());
+    }
+
+    private Map<String, Object> makeGamePlayerDTO(GamePlayer gamePlayer){
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        dto.put("id:", gamePlayer.getId());
+        dto.put("Date:", gamePlayer.getJoinDate());
+        return dto;
+    }
+
+
+
 /*
     @RequestMapping("/players")
     public List<Long> getAllPlayers() {
