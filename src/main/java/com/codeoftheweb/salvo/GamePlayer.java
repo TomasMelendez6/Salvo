@@ -1,9 +1,11 @@
 package com.codeoftheweb.salvo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class GamePlayer {
@@ -22,6 +24,9 @@ public class GamePlayer {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="game_id")
     private Game game;
+
+ //   @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
+ //   private Set<Ship> ships;
 
     //Constructor
     public GamePlayer() {
@@ -49,4 +54,10 @@ public class GamePlayer {
     public Game getGame() {
         return game;
     }
+
+//    @JsonIgnore
+  //  public Set<Ship> getShips() {
+    //    return ships;
+    //}
+
 }
