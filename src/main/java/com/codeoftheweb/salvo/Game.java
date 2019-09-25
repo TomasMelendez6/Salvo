@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Game {
@@ -44,6 +44,31 @@ public class Game {
     //Metodos
     public void addGamePlayer(GamePlayer gamePlayer) {
         gamePlayers.add(gamePlayer);
+    }
+
+    public Map<String, Object> makeGameDTO() {
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        dto.put("id", this.getId());
+        dto.put("creationDate", this.getCreationDate());
+        dto.put("gamePlayers", this.getAllGamePlayers(getGamePlayers()));
+//        dto.put("ships",getGamePlayers.getAllShips())
+        return dto;
+    }
+/*
+    private List<Map<String, Object>> getAllGamePlayersShips(Set<GamePlayer> gamePlayers) {
+        return gamePlayers
+                .stream()
+                .map(gamePlayer -> gamePlayer.getAllShips())
+                .collect(Collectors.toList());
+    }
+
+ */
+
+    private List<Map<String, Object>> getAllGamePlayers(Set<GamePlayer> gamePlayers) {
+        return gamePlayers
+                .stream()
+                .map(gamePlayer -> gamePlayer.makeGamePlayerDTO())
+                .collect(Collectors.toList());
     }
 
 }

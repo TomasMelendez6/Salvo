@@ -17,7 +17,8 @@ public class SalvoApplication {
 	@Bean
 	public CommandLineRunner initData(PlayerRepository playerRepository,
 									  GameRepository gameRepository,
-									  GamePlayerRepository gamePlayerRepository) {
+									  GamePlayerRepository gamePlayerRepository,
+									  ShipRepository shipRepository) {
 		return (args) -> {
 			Player p1 = new Player("j.bauer@ctu.gov");
 			Player p2 = new Player("c.obrian@ctu.gov");
@@ -60,6 +61,26 @@ public class SalvoApplication {
 			GamePlayer gp14 = new GamePlayer(d8, p4, g8);
 			gamePlayerRepository.saveAll(Arrays.asList(gp1, gp2, gp3,
 					gp4, gp5, gp6, gp7, gp8, gp9, gp10, gp11, gp12, gp13, gp14));
+
+			Ship s1 = new Ship(gp1, "Destroyer",Arrays.asList("H2", "H3", "H4"));
+			Ship s2 = new Ship(gp1, "Submarine",Arrays.asList("E1", "F1", "G1"));
+			Ship s3 = new Ship(gp1, "Patrol Boat",Arrays.asList("B4", "B5"));
+			Ship s4 = new Ship(gp2, "Destroyer",Arrays.asList("B5", "C5", "D5"));
+			Ship s5 = new Ship(gp2, "Patrol Boat",Arrays.asList("F1", "F2"));
+
+			Ship s6 = new Ship(gp3, "Destroyer",Arrays.asList("B5", "C5", "D5"));
+			Ship s7 = new Ship(gp3, "Patrol Boat",Arrays.asList("C6", "C7"));
+			Ship s8 = new Ship(gp4, "Submarine",Arrays.asList("A2", "A3", "A4"));
+			Ship s9 = new Ship(gp4, "Patrol Boat",Arrays.asList("G6", "H6"));
+
+			Ship s10 = new Ship(gp5, "Destroyer",Arrays.asList("B5", "C5", "D5"));
+			Ship s11 = new Ship(gp5, "Patrol Boat",Arrays.asList("C6", "C7"));
+			Ship s12 = new Ship(gp6, "Submarine",Arrays.asList("A2", "A3", "A4"));
+			Ship s13 = new Ship(gp6, "Patrol Boat",Arrays.asList("G6", "H6"));
+
+			shipRepository.saveAll(Arrays.asList(s1, s2, s3, s4, s5, s6, s7, s8,
+					s9, s10, s11, s12, s13));
+
 		};
 	}
 }
