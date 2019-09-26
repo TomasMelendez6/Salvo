@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 
 @SpringBootApplication
 public class SalvoApplication {
@@ -62,24 +63,43 @@ public class SalvoApplication {
 			gamePlayerRepository.saveAll(Arrays.asList(gp1, gp2, gp3,
 					gp4, gp5, gp6, gp7, gp8, gp9, gp10, gp11, gp12, gp13, gp14));
 
-			Ship s1 = new Ship(gp1, "Destroyer",Arrays.asList("H2", "H3", "H4"));
-			Ship s2 = new Ship(gp1, "Submarine",Arrays.asList("E1", "F1", "G1"));
-			Ship s3 = new Ship(gp1, "Patrol Boat",Arrays.asList("B4", "B5"));
-			Ship s4 = new Ship(gp2, "Destroyer",Arrays.asList("B5", "C5", "D5"));
-			Ship s5 = new Ship(gp2, "Patrol Boat",Arrays.asList("F1", "F2"));
+			Ship s1 = new Ship(gp1, "Destroyer", new HashSet<>(Arrays.asList("H2", "H3", "H4")));
+			Ship s2 = new Ship(gp1, "Submarine", new HashSet<>(Arrays.asList("E1", "F1", "G1")));
+			Ship s3 = new Ship(gp1, "Patrol Boat", new HashSet<>(Arrays.asList("B4","B5")));
+			Ship s4 = new Ship(gp2, "Destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")));
+			Ship s5 = new Ship(gp2, "Patrol Boat", new HashSet<>(Arrays.asList("F1", "F2")));
 
-			Ship s6 = new Ship(gp3, "Destroyer",Arrays.asList("B5", "C5", "D5"));
-			Ship s7 = new Ship(gp3, "Patrol Boat",Arrays.asList("C6", "C7"));
-			Ship s8 = new Ship(gp4, "Submarine",Arrays.asList("A2", "A3", "A4"));
-			Ship s9 = new Ship(gp4, "Patrol Boat",Arrays.asList("G6", "H6"));
+			Ship s6 = new Ship(gp3, "Destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")));
+			Ship s7 = new Ship(gp3, "Patrol Boat", new HashSet<>(Arrays.asList("C6", "C7")));
+			Ship s8 = new Ship(gp4, "Submarine", new HashSet<>(Arrays.asList("A2", "A3", "A4")));
+			Ship s9 = new Ship(gp4, "Patrol Boat", new HashSet<>(Arrays.asList("G6", "H6")));
 
-			Ship s10 = new Ship(gp5, "Destroyer",Arrays.asList("B5", "C5", "D5"));
-			Ship s11 = new Ship(gp5, "Patrol Boat",Arrays.asList("C6", "C7"));
-			Ship s12 = new Ship(gp6, "Submarine",Arrays.asList("A2", "A3", "A4"));
-			Ship s13 = new Ship(gp6, "Patrol Boat",Arrays.asList("G6", "H6"));
+			Ship s10 = new Ship(gp5, "Destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")));
+			Ship s11 = new Ship(gp5, "Patrol Boat", new HashSet<>(Arrays.asList("C6", "C7")));
+			Ship s12 = new Ship(gp6, "Submarine", new HashSet<>(Arrays.asList("A2", "A3", "A4")));
+			Ship s13 = new Ship(gp6, "Patrol Boat", new HashSet<>(Arrays.asList("G6", "H6")));
+
+			Ship s14 = new Ship(gp7, "Destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")));
+			Ship s15 = new Ship(gp7, "Patrol Boat", new HashSet<>(Arrays.asList("C6", "C7")));
+			Ship s16 = new Ship(gp8, "Submarine", new HashSet<>(Arrays.asList("A2", "A3", "A4")));
+			Ship s17 = new Ship(gp8	, "Patrol Boat", new HashSet<>(Arrays.asList("G6", "H6")));
+
+			Ship s18 = new Ship(gp9, "Destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")));
+			Ship s19 = new Ship(gp9, "Patrol Boat", new HashSet<>(Arrays.asList("C6", "C7")));
+			Ship s20 = new Ship(gp10, "Submarine", new HashSet<>(Arrays.asList("A2", "A3", "A4")));
+			Ship s21 = new Ship(gp10, "Patrol Boat", new HashSet<>(Arrays.asList("G6", "H6")));
+
+			Ship s22 = new Ship(gp11, "Destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")));
+			Ship s23 = new Ship(gp11, "Patrol Boat", new HashSet<>(Arrays.asList("C6", "C7")));
+
+			Ship s24 = new Ship(gp13, "Destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")));
+			Ship s25 = new Ship(gp13, "Patrol Boat", new HashSet<>(Arrays.asList("C6", "C7")));
+			Ship s26 = new Ship(gp14, "Submarine", new HashSet<>(Arrays.asList("A2", "A3", "A4")));
+			Ship s27 = new Ship(gp14, "Patrol Boat", new HashSet<>(Arrays.asList("G6", "H6")));
 
 			shipRepository.saveAll(Arrays.asList(s1, s2, s3, s4, s5, s6, s7, s8,
-					s9, s10, s11, s12, s13));
+					s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21,
+					s22, s23, s24, s25, s26, s27));
 
 		};
 	}

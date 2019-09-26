@@ -2,6 +2,7 @@ package com.codeoftheweb.salvo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.*;
@@ -68,11 +69,21 @@ public class GamePlayer {
     }
 
 
-    private List<Map<String, Object>> getAllShips(Set<Ship> ships) {
+    public List<Map<String, Object>> getAllShips() {
         return ships
                 .stream()
                 .map(ship -> ship.makeShipDTO())
                 .collect(Collectors.toList());
+    }
+
+    public Map<String, Object> makeGamePlayerDTO2() {
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        dto.put("id", this.game.getId());
+        dto.put("created", this.game.getCreationDate());
+        dto.put("gamePlayers", this.game.getAllGamePlayers(this.game.getGamePlayers()));
+        dto.put("ships", this.getAllShips());
+        return dto;
+
     }
 
 
