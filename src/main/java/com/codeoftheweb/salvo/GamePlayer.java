@@ -29,7 +29,10 @@ public class GamePlayer {
     @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
     private Set<Ship> ships;
 
-    //Constructor
+    @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
+    private Set<Salvoes> salvoes;
+
+    //Constructors
     public GamePlayer() {
     }
 
@@ -61,6 +64,8 @@ public class GamePlayer {
         return ships;
     }
 
+    //Methods
+
     public Map<String, Object> makeGamePlayerDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("id", this.getId());
@@ -86,5 +91,13 @@ public class GamePlayer {
 
     }
 
+    public void addShip(Ship ship) {
+        ships.add(ship);
+    }
+/*
+    public void addSalvoes(Salvoes salvoess) {
+        salvoes.add(salvoess);
+    }
+ */
 
 }
