@@ -1,5 +1,6 @@
-package com.codeoftheweb.salvo;
+package com.codeoftheweb.salvo.models;
 
+import com.codeoftheweb.salvo.models.GamePlayer;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -56,7 +57,7 @@ public class Ship {
     public Map<String, Object> makeShipDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("type", this.getType());
-        dto.put("locations", this.getShipLocations());
+        dto.put("shipLocations", this.getShipLocations());
         return dto;
     }
 }

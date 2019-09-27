@@ -1,4 +1,4 @@
-package com.codeoftheweb.salvo;
+package com.codeoftheweb.salvo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
@@ -61,5 +61,12 @@ public class Game {
                 .collect(Collectors.toList());
     }
 
+    public List<Map<String, Object>> getAllSalvoesFromGamePlayers() {
+        return gamePlayers
+                .stream()
+                .flatMap(gamePlayer -> gamePlayer.getSalvoes().stream())
+                .map(salvo -> salvo.makeSalvoDTO())
+                .collect(Collectors.toList());
+    }
 
 }

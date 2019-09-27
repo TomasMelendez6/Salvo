@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ships locations!</title>
+  <link rel="stylesheet" type="text/css" href="css/game.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+      <div>
+          <span id="playerInfo"></span>
+      </div>
+      <div class="row">
+        <div class="col">
+          <section>
+            <h2>Game Board</h2>
+            <table border="1">
+              <thead>
+                <th></th>
+                <th id="bth_0">1</th><th id="bth_1">2</th><th id="bth_2">3</th><th id="bth_3">4</th><th id="bth_4">5</th>
+                <th id="bth_5">6</th><th id="bth_6">7</th><th id="bth_7">8</th><th id="bth_8">9</th><th id="bth_9">10</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>A</td>
+                  <td id="B_A1"></td><td id="B_A2"></td><td  id="B_A3"></td><td id="B_A4"></td><td  id="B_A5"></td>
+                  <td id="B_A6"></td><td id="B_A7"></td><td  id="B_A8"></td><td id="B_A9"></td><td  id="B_A10"></td>
+                </tr>
+                <tr>
+                  <td>B</td>
+                  <td id="B_B1"></td><td id="B_B2"></td><td id="B_B3"></td><td id="B_B4"></td><td id="B_B5"></td>
+                  <td id="B_B6"></td><td id="B_B7"></td><td id="B_B8"></td><td id="B_B9"></td><td id="B_B10"></td>
+                </tr>
+                <tr>
+                  <td>C</td>
+                  <td id="B_C1"></td><td id="B_C2"></td><td id="B_C3"></td><td id="B_C4"></td><td id="B_C5"></td>
+                  <td id="B_C6"></td><td id="B_C7"></td><td id="B_C8"></td><td id="B_C9"></td><td id="B_C10"></td>
+                </tr>
+                <tr>
+                  <td>D</td>
+                  <td id="B_D1"></td><td id="B_D2"></td><td id="B_D3"></td><td id="B_D4"></td><td id="B_D5"></td>
+                  <td id="B_D6"></td><td id="B_D7"></td><td id="B_D8"></td><td id="B_D9"></td><td id="B_D10"></td>
+                </tr>
+                <tr>
+                  <td>E</td>
+                  <td id="B_E1"></td><td id="B_E2"></td><td id="B_E3"></td><td id="B_E4"></td><td id="B_E5"></td>
+                  <td id="B_E6"></td><td id="B_E7"></td><td id="B_E8"></td><td id="B_E9"></td><td id="B_E10"></td>
+                </tr>
+                <tr>
+                  <td>F</td>
+                  <td id="B_F1"></td><td id="B_F2"></td><td id="B_F3"></td><td id="B_F4"></td><td id="B_F5"></td>
+                  <td id="B_F6"></td><td id="B_F7"></td><td id="B_F8"></td><td id="B_F9"></td><td id="B_F10"></td>
+                </tr>
+                <tr>
+                  <td>G</td>
+                  <td id="B_G1"></td><td id="B_G2"></td><td id="B_G3"></td><td id="B_G4"></td><td id="B_G5"></td>
+                  <td id="B_G6"></td><td id="B_G7"></td><td id="B_G8"></td><td id="B_G9"></td><td id="B_G10"></td>
+                </tr>
+                <tr>
+                  <td>H</td>
+                  <td id="B_H1"></td><td id="B_H2"></td><td id="B_H3"></td><td id="B_H4"></td><td id="B_H5"></td>
+                  <td id="B_H6"></td><td id="B_H7"></td><td id="B_H8"></td><td id="B_H9"></td><td id="HB_10"></td>
+                </tr>
+                <tr>
+                  <td>I</td>
+                  <td id="B_I1"></td><td id="B_I2"></td><td id="B_I3"></td><td id="B_I4"></td><td id="B_I5"></td>
+                  <td id="B_I6"></td><td id="B_I7"></td><td id="B_I8"></td><td id="B_I9"></td><td id="B_I10"></td>
+                </tr>
+                <tr>
+                  <td>J</td>
+                  <td id="B_J1"></td><td id="B_J2"></td><td id="B_J3"></td><td id="B_J4"></td><td id="B_J5"></td>
+                  <td id="B_J6"></td><td id="B_J7"></td><td id="B_J8"></td><td id="B_J9"></td><td id="B_J10"></td>
+                </tr>
+                </tbody>
+            </table>
+          </section>
+        </div>
+        <div class="col">
+          <section>
+            <h2>Salvo board</h2>
+            <table border="1">
+              <thead>
+                <th></th>
+                <th id="th_0">1</th><th id="th_1">2</th><th id="th_2">3</th><th id="th_3">4</th><th id="th_4">5</th>
+                <th id="th_5">6</th><th id="th_6">7</th><th id="th_7">8</th><th id="th_8">9</th><th id="th_9">10</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>A</td>
+                  <td id="S_A1"></td><td id="S_A2"></td><td  id="S_A3"></td><td id="S_A4"></td><td  id="S_A5"></td>
+                  <td id="S_A6"></td><td id="S_A7"></td><td  id="S_A8"></td><td id="S_A9"></td><td  id="S_A10"></td>
+                </tr>
+                <tr>
+                  <td>B</td>
+                  <td id="S_B1"></td><td id="S_B2"></td><td id="S_B3"></td><td id="S_B4"></td><td id="S_B5"></td>
+                  <td id="S_B6"></td><td id="S_B7"></td><td id="S_B8"></td><td id="S_B9"></td><td id="S_B10"></td>
+                </tr>
+                <tr>
+                  <td>C</td>
+                  <td id="S_C1"></td><td id="S_C2"></td><td id="S_C3"></td><td id="S_C4"></td><td id="S_C5"></td>
+                  <td id="S_C6"></td><td id="S_C7"></td><td id="S_C8"></td><td id="S_C9"></td><td id="S_C10"></td>
+                </tr>
+                <tr>
+                  <td>D</td>
+                  <td id="S_D1"></td><td id="S_D2"></td><td id="S_D3"></td><td id="S_D4"></td><td id="S_D5"></td>
+                  <td id="S_D6"></td><td id="S_D7"></td><td id="S_D8"></td><td id="S_D9"></td><td id="S_D10"></td>
+                </tr>
+                <tr>
+                  <td>E</td>
+                  <td id="S_E1"></td><td id="S_E2"></td><td id="S_E3"></td><td id="S_E4"></td><td id="S_E5"></td>
+                  <td id="S_E6"></td><td id="S_E7"></td><td id="S_E8"></td><td id="S_E9"></td><td id="S_E10"></td>
+                </tr>
+                <tr>
+                  <td>F</td>
+                  <td id="S_F1"></td><td id="S_F2"></td><td id="S_F3"></td><td id="S_F4"></td><td id="S_F5"></td>
+                  <td id="S_F6"></td><td id="S_F7"></td><td id="S_F8"></td><td id="S_F9"></td><td id="S_F10"></td>
+                </tr>
+                <tr>
+                  <td>G</td>
+                  <td id="S_G1"></td><td id="S_G2"></td><td id="S_G3"></td><td id="S_G4"></td><td id="S_G5"></td>
+                  <td id="S_G6"></td><td id="S_G7"></td><td id="S_G8"></td><td id="S_G9"></td><td id="S_G10"></td>
+                </tr>
+                <tr>
+                  <td>H</td>
+                  <td id="S_H1"></td><td id="S_H2"></td><td id="S_H3"></td><td id="S_H4"></td><td id="S_H5"></td>
+                  <td id="S_H6"></td><td id="S_H7"></td><td id="S_H8"></td><td id="S_H9"></td><td id="S_H10"></td>
+                </tr>
+                <tr>
+                  <td>I</td>
+                  <td id="S_I1"></td><td id="S_I2"></td><td id="S_I3"></td><td id="S_I4"></td><td id="S_I5"></td>
+                  <td id="S_I6"></td><td id="S_I7"></td><td id="S_I8"></td><td id="S_I9"></td><td id="S_I10"></td>
+                </tr>
+                <tr>
+                  <td>J</td>
+                  <td id="S_J1"></td><td id="S_J2"></td><td id="S_J3"></td><td id="S_J4"></td><td id="S_J5"></td>
+                  <td id="S_J6"></td><td id="S_J7"></td><td id="S_J8"></td><td id="S_J9"></td><td id="S_J10"></td>
+                </tr>
+                </tbody>
+            </table>
+          </section>
+        </div>
+      </div>
+    </div>
+<script src="js/popper.min.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="./js/game_2.js"></script>
+</body>
+</html>

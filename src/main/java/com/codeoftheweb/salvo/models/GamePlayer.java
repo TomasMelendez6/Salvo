@@ -1,8 +1,7 @@
-package com.codeoftheweb.salvo;
+package com.codeoftheweb.salvo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.*;
@@ -32,6 +31,8 @@ public class GamePlayer {
     @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
     private Set<Salvo> salvoes;
 
+
+
     //Constructors
     public GamePlayer() {
     }
@@ -41,6 +42,8 @@ public class GamePlayer {
         this.player = player;
         this.game = game;
     }
+
+
 
     //Getters
     public long getId() {
@@ -63,6 +66,12 @@ public class GamePlayer {
      public Set<Ship> getShips() {
         return ships;
     }
+
+    public Set<Salvo> getSalvoes() {
+        return salvoes;
+    }
+
+
 
     //Methods
 
@@ -87,6 +96,7 @@ public class GamePlayer {
         dto.put("created", this.game.getCreationDate());
         dto.put("gamePlayers", this.game.getAllGamePlayers(this.game.getGamePlayers()));
         dto.put("ships", this.getAllShips());
+        dto.put("salvoes", this.game.getAllSalvoesFromGamePlayers());
         return dto;
 
     }
@@ -94,10 +104,9 @@ public class GamePlayer {
     public void addShip(Ship ship) {
         ships.add(ship);
     }
-/*
-    public void addSalvoes(Salvoes salvoess) {
-        salvoes.add(salvoess);
+
+    public void addSalvo(Salvo salvo) {
+        salvoes.add(salvo);
     }
- */
 
 }

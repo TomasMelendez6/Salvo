@@ -1,5 +1,6 @@
-package com.codeoftheweb.salvo;
+package com.codeoftheweb.salvo.models;
 
+import com.codeoftheweb.salvo.models.GamePlayer;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -30,9 +31,10 @@ public class Salvo {
     public Salvo() {
     }
 
-    public Salvo(int turno, GamePlayer gamePlayer) {
+    public Salvo(int turno, GamePlayer gamePlayer, Set<String> salvoesLocations) {
         this.turno = turno;
         this.gamePlayer = gamePlayer;
+        this.salvoesLocations = salvoesLocations;
     }
 
     //Getters
@@ -55,13 +57,17 @@ public class Salvo {
     }
 
     //Methods
-    /*
-    public Map<String, Object> makeSalvoesDTO(){
+
+    public void addSalvoLocation(String salvoLocation) {
+        salvoesLocations.add(salvoLocation);
+    }
+
+    public Map<String, Object> makeSalvoDTO(){
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("id", this.getId());
-        dto.put("gamePlayer", this.getGamePlayer().makeGamePlayerDTO());
+        dto.put("turn", this.getTurno());
+        dto.put("player", this.getGamePlayer().getPlayer().getId());
+        dto.put("salvoLocations", this.getSalvoesLocations());
         return dto;
     }
 
-     */
 }
