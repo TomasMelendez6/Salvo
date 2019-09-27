@@ -19,6 +19,11 @@ public class Game {
     @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
     private Set<GamePlayer> gamePlayers;
 
+    @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
+    private Set<Score> scores;
+
+
+
     //Constructor
 
     public Game() {
@@ -41,9 +46,17 @@ public class Game {
         return gamePlayers;
     }
 
+    public Set<Score> getScores() {
+        return scores;
+    }
+
     //Metodos
     public void addGamePlayer(GamePlayer gamePlayer) {
         gamePlayers.add(gamePlayer);
+    }
+
+    public void addScore(Score score) {
+        scores.add(score);
     }
 
     public Map<String, Object> makeGameDTO() {
@@ -51,6 +64,7 @@ public class Game {
         dto.put("id", this.getId());
         dto.put("creationDate", this.getCreationDate());
         dto.put("gamePlayers", this.getAllGamePlayers(getGamePlayers()));
+        dto.put("scores", getAllScoresFromGamePlayers());
         return dto;
     }
 
@@ -66,6 +80,15 @@ public class Game {
                 .stream()
                 .flatMap(gamePlayer -> gamePlayer.getSalvoes().stream())
                 .map(salvo -> salvo.makeSalvoDTO())
+                .collect(Collectors.toList());
+    }
+
+    public List<Map<String, Object>> getAllScoresFromGamePlayers() {
+        return gamePlayers
+                .stream()
+                .filter(gamePlayer -> gamePlayer.getGame().getId() == this.getId())
+                .flatMap(gamePlayer -> gamePlayer.getPlayer().getScores().stream())
+                .map(score -> score.makeScoreDTO())
                 .collect(Collectors.toList());
     }
 
