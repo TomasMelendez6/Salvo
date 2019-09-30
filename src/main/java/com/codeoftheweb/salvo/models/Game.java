@@ -83,10 +83,10 @@ public class Game {
                 .collect(Collectors.toList());
     }
 
-public List<Map<String, Object>> getAllScoresFromGamePlayers() {
-    return this.scores.stream()
-            .map(score -> score.makeScoreDTO())
-            .collect(Collectors.toList());
-}
+    public List<Map<String, Object>> getAllScoresFromGamePlayers() {
+        return this.scores.stream()
+                .map(score -> score.makeScoreDTO())
+                .collect(Collectors.toList());
+    }
 
 }
