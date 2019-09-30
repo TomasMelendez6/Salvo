@@ -6,8 +6,10 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Player {
@@ -73,4 +75,26 @@ public class Player {
         dto.put("email", this.getUserName());
         return dto;
     }
+/*
+    public Map<String, Object> makePlayerDTO2() {
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        dto.put("name", this.userName);
+        dto.put("total", this.getTotal());
+        dto.put("win", this.getByResult(1));
+        dto.put("tied", this.getByResult(0.5));
+        dto.put("lose", this.getByResult(0));
+        return dto;
+    }
+
+    private double getByResult(double result) {
+        List<Double> list = scores.stream().filter(score -> score.getScore() == result).map(score -> score.getScore()).collect(Collectors.toList());
+        return list.stream().reduce((double) 0, (subtotal, score) -> subtotal + 1);
+    }
+
+    private double getTotal() {
+        List<Double> list = scores.stream().map(score -> score.getScore()).collect(Collectors.toList());
+        return list.stream().reduce((double) 0, (subtotal, score) -> subtotal + score);
+    }
+
+ */
 }
