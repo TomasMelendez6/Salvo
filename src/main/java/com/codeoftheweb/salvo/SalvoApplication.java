@@ -129,7 +129,7 @@ public class SalvoApplication {
 			Salvo sa18 = new Salvo(1, gp10, new HashSet<>(Arrays.asList("B5", "B6", "C7")));
 			Salvo sa19 = new Salvo(2, gp9, new HashSet<>(Arrays.asList("G6", "G7", "G8")));
 			Salvo sa20 = new Salvo(2, gp10, new HashSet<>(Arrays.asList("C6", "D6", "E6")));
-			Salvo sa21 = new Salvo(3, gp10, new HashSet<>(Arrays.asList("H1", "H8")));
+		Salvo sa21 = new Salvo(3, gp10, new HashSet<>(Arrays.asList("H1", "H8")));
 
 			salvoRepository.saveAll(Arrays.asList(sa1, sa2, sa3, sa4, sa5, sa6, sa7, sa8, sa9, sa10,
 					sa11, sa12, sa13, sa14, sa15, sa16, sa17, sa18, sa19, sa20, sa21));
@@ -143,7 +143,7 @@ public class SalvoApplication {
 			Score sc5 = new Score(g3, p2, 1, d4);
 			Score sc6 = new Score(g3, p4, 0, d4);
 
-			Score sc7 = new Score(g4, p4, 0.5, d5);
+			Score sc7 = new Score(g4, p2, 0.5, d5);
 			Score sc8 = new Score(g4, p1, 0.5, d5);
 
 			scoreRepository.saveAll(Arrays.asList(sc1, sc2, sc3, sc4, sc5,

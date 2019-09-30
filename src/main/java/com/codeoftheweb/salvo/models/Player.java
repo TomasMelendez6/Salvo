@@ -75,14 +75,17 @@ public class Player {
         dto.put("email", this.getUserName());
         return dto;
     }
-/*
+
     public Map<String, Object> makePlayerDTO2() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("name", this.userName);
-        dto.put("total", this.getTotal());
-        dto.put("win", this.getByResult(1));
-        dto.put("tied", this.getByResult(0.5));
-        dto.put("lose", this.getByResult(0));
+        Map<String, Object> score = new LinkedHashMap<String, Object>();
+        dto.put("id", this.getId());
+        dto.put("email", this.userName);
+        dto.put("score", score);
+            score.put("total", this.getTotal());
+            score.put("won", this.getByResult(1));
+            score.put("lost", this.getByResult(0));
+            score.put("tied", this.getByResult(0.5));
         return dto;
     }
 
@@ -96,5 +99,4 @@ public class Player {
         return list.stream().reduce((double) 0, (subtotal, score) -> subtotal + score);
     }
 
- */
 }
