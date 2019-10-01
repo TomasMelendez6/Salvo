@@ -3,6 +3,7 @@ package com.codeoftheweb.salvo.models;
 import com.codeoftheweb.salvo.models.GamePlayer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.LinkedHashMap;
@@ -21,6 +22,8 @@ public class Player {
 
     private String userName;
 
+    private String password;
+
     @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
     Set<GamePlayer> gamePlayers;
 
@@ -33,8 +36,9 @@ public class Player {
     public Player() {
     }
 
-    public Player(String userName) {
+    public Player(String userName, String password) {
         this.userName = userName;
+        this.password = password;
     }
 
     //Getters
@@ -55,9 +59,17 @@ public class Player {
         return scores;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     //Setters
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     //Motodos
@@ -91,7 +103,8 @@ public class Player {
 
     private double getByResult(double result) {
         List<Double> list = scores.stream().filter(score -> score.getScore() == result).map(score -> score.getScore()).collect(Collectors.toList());
-        return list.stream().reduce((double) 0, (subtotal, score) -> subtotal + 1);
+//        return list.stream().reduce((double) 0, (subtotal, score) -> subtotal + 1);
+        return list.stream().count();
     }
 
     private double getTotal() {
