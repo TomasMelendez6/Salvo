@@ -21,6 +21,8 @@ public class Player {
 
     private String userName;
 
+    private String password;
+
     @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
     Set<GamePlayer> gamePlayers;
 
@@ -33,8 +35,9 @@ public class Player {
     public Player() {
     }
 
-    public Player(String userName) {
+    public Player(String userName, String password) {
         this.userName = userName;
+        this.password = password;
     }
 
     //Getters
@@ -44,6 +47,10 @@ public class Player {
 
     public String getUserName() {
         return userName;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     @JsonIgnore
@@ -58,6 +65,10 @@ public class Player {
     //Setters
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     //Motodos
@@ -91,7 +102,8 @@ public class Player {
 
     private double getByResult(double result) {
         List<Double> list = scores.stream().filter(score -> score.getScore() == result).map(score -> score.getScore()).collect(Collectors.toList());
-        return list.stream().reduce((double) 0, (subtotal, score) -> subtotal + 1);
+        //return list.stream().reduce((double) 0, (subtotal, score) -> subtotal + 1);
+        return list.stream().count();
     }
 
     private double getTotal() {
