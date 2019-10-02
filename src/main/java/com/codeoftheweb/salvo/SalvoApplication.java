@@ -205,9 +205,17 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 				.authorizeRequests()
-				.antMatchers("/api/**").hasAuthority("USER")
+
+				//.antMatchers("/web/game_2.html").permitAll()
+				//.antMatchers("/api/css/games.css").permitAll()
+				.antMatchers("/web/**").permitAll()
+				.antMatchers("/**").hasAuthority("USER")
 				.and().formLogin();
-		http.logout().logoutUrl("/api/logout");
+		/*http.formLogin()
+				.usernameParameter("name")
+				.passwordParameter("pwd")
+				.loginPage("/api/login");
+		*/http.logout().logoutUrl("/api/logout");
 
 
 

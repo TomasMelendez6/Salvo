@@ -7,10 +7,12 @@ import com.codeoftheweb.salvo.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @RestController
@@ -30,6 +32,45 @@ public class SalvoController {
     PasswordEncoder passwordEncoder;
 
     @RequestMapping("/games")
+    public Map<String, Object> getAllGames2(Authentication authentication){
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        dto.put("player", makeCurrentPlayerDTO(authentication));
+        dto.put("games", getAllGames());
+        return dto;
+    }
+
+    public Map<String, Object> makeCurrentPlayerDTO(Authentication authentication){
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        Player p = new Player();
+        p = getPlayerLogin(authentication);
+        if(p != null){
+            dto.put("id", p.getId());
+            dto.put("userName", p.getUserName());
+        }
+        else{
+            dto = null;
+        }
+        return dto;
+    }
+
+    private Player getPlayerLogin(Authentication authentication) {
+        List<Player> listPlayerLogin = new ArrayList<>();
+        // List players login
+        if (authentication != null) {
+            listPlayerLogin = playerRepo.findAll()
+                    .stream()
+                    .filter(player -> player.getUserName().equals(authentication.getName()))
+                    .collect(Collectors.toList());
+        }
+        // Get player authentication
+        if (listPlayerLogin.isEmpty()) {
+            return null;
+        } else {
+            return listPlayerLogin.get(0);
+        }
+
+    }
+
     public List<Map<String, Object>> getAllGames() {
         return gameRepo.findAll()
                 .stream()

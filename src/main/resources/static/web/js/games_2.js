@@ -5,7 +5,7 @@ $(function() {
 function loadData() {
   $.get("/api/games")
     .done(function(data) {
-      updateViewGames(data);
+      updateViewGames(data.games);
     })
     .fail(function( jqXHR, textStatus ) {
       alert( "Failed: " + textStatus );
