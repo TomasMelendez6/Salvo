@@ -27,7 +27,7 @@ public class SalvoController {
     private GamePlayerRepository gamePlayerRepo;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @RequestMapping("/games")
     public List<Map<String, Object>> getAllGames() {
@@ -54,7 +54,7 @@ public class SalvoController {
                 .collect(Collectors.toList());
     }
 
-    @RequestMapping(path = "/players", method = RequestMethod.POST)
+    @RequestMapping(path = "/register", method = RequestMethod.POST)
     public ResponseEntity<Object> register(
             @RequestParam String userName, @RequestParam String password) {
 
@@ -69,6 +69,7 @@ public class SalvoController {
         playerRepo.save(new Player(userName, passwordEncoder.encode(password)));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 
 }
 
