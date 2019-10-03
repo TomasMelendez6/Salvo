@@ -1,5 +1,7 @@
 package com.codeoftheweb.salvo.controllers;
 
+import com.codeoftheweb.salvo.models.Game;
+import com.codeoftheweb.salvo.models.GamePlayer;
 import com.codeoftheweb.salvo.models.Player;
 import com.codeoftheweb.salvo.repositories.GamePlayerRepository;
 import com.codeoftheweb.salvo.repositories.GameRepository;
@@ -118,6 +120,23 @@ public class SalvoController {
 
         playerRepo.save(new Player(email, passwordEncoder.encode(password)));
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(path = "/games", method = RequestMethod.POST)
+    public ResponseEntity<Object> newGame(Authentication authentication){
+        Player plog = getPlayerLogin(authentication);
+        if(plog == null){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        Game g = gameRepo.save(new Game());
+        GamePlayer gp = gamePlayerRepo.save(new GamePlayer(new Date(), plog, g));
+        return new ResponseEntity<>(makeMap("gp", gp.getId()), HttpStatus.CREATED);
+    }
+
+    private Map<String, Object> makeMap(String gp, long id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(gp, id);
+        return map;
     }
 
 
