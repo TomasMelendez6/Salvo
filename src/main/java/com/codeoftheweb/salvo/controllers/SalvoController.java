@@ -49,8 +49,7 @@ public class SalvoController {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         Player p =  getPlayerLogin(authentication);
         if(p != null){
-            dto.put("id", p.getId());
-            dto.put("userName", p.getUserName());
+            dto = p.makePlayerDTO();
         }
         else{
             dto = null;
@@ -89,13 +88,12 @@ public class SalvoController {
 
     @RequestMapping("/game_view/{gamePlayerId}")
     public Map<String, Object> getSomething(@PathVariable Long gamePlayerId){
-        //Game game = gamePlayerRepo.findById(gamePlayerId).get().getGame();
         return gamePlayerRepo
                 .findById(gamePlayerId)
                 .get()
                 .makeGamePlayerDTO2();
     }
-
+/*
     @RequestMapping("/leaderBoard")
     public List<Map<String, Object>> getLeaderboard() {
         return playerRepo.findAll()
@@ -104,19 +102,21 @@ public class SalvoController {
                 .collect(Collectors.toList());
     }
 
+ */
+
     @RequestMapping(path = "/players", method = RequestMethod.POST)
     public ResponseEntity<Object> register(
-                @RequestParam String userName, @RequestParam String password) {
+                @RequestParam String email, @RequestParam String password) {
 
-        if (userName.isEmpty() || password.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty()) {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
 
-        if (playerRepo.findByUserName(userName) !=  null) {
+        if (playerRepo.findByUserName(email) !=  null) {
             return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
         }
 
-        playerRepo.save(new Player(userName, passwordEncoder.encode(password)));
+        playerRepo.save(new Player(email, passwordEncoder.encode(password)));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

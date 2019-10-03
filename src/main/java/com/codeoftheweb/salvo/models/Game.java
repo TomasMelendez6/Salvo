@@ -84,13 +84,11 @@ public class Game {
     }
 
     public List<Map<String, Object>> getAllScoresFromGamePlayers() {
-        if(!scores.isEmpty()) {
-            return this.scores.stream()
-                    .map(score -> score.makeScoreDTO())
-                    .collect(Collectors.toList());
-        }else {
-            return null;
-        }
+
+        return this.scores.stream()
+                .map(score -> score.makeScoreDTO())
+                .collect(Collectors.toList());
+
     }
 
 }

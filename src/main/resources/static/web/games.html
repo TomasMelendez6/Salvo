@@ -4,31 +4,71 @@
   <meta charset="UTF-8">
   <title>Salvo!</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="./css/game.css">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <ol class="list-group" id="game-list">
-        </ol>
-      </div>
-      <div class="col">
-        <table class="table table-striped table-dark tablaJugadores">
-          <thead>
-          <th>Name</th>
-          <th>Total</th>
-          <th>Won</th>
-          <th>Lost</th>
-          <th>Tied</th>
-          </thead>
-          <tbody id="leader-list">
-          </tbody>
-        </table>
-      </div>
+<div class="container-fluid">
+    <div class="bannerTitle"><img class="bannerImageGames" src="img/titlebannersalvo.png"></div>
+    <div id="loginBlock" class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="currentPlayerContainer">Current player: <span id="currentPlayer"></span><form class="form" id="logout-form" onsubmit="return false">
+                        <button type="submit" class="btn btn-info">Log out</button></form>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <form class="form-inline" id="login-form" onsubmit="return false">
+                        <label for="username">Name:</label><input class="form-control" id="username" type="email" name="username" required>
+                        <label for="password">Password:</label><input class="form-control" id="password" type="password" name="password" required>
+                        <input type="submit" class="form-control submitbutton btn btn-info" name="login" value="Login" />
+                        <input type="submit" class="form-control submitbutton btn btn-info" name="signup" value="Sign Up" />
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <script src="./js/popper.min.js"></script>
+    <h3 id="signupSuccess" class="textCenter">Player created Successfully!</h3>
+    <h3 id="errorSignup" class="textCenter"></h3>
+    <h3 id="loginSuccess" class="textCenter">Login Successful!</h3>
+    <h3 id="loginFailed" class="textCenter">Login failed! Bad credentials!</h3>
+    <h3 id="logoutSuccess" class="textCenter">Logout Successful!</h3>
+    <h3 id="gameCreatedSuccess" class="textCenter">Game Created Successfully! Redirecting to Game Page...</h3>
+    <h3 id="gameJoinedSuccess" class="textCenter">Game Joined Successfully! Redirecting to Game Page...</h3>
+
+    <form class="textCenter" id="createGame" onsubmit="return false">
+        <button type="submit" class="btn btn-warning">CREATE NEW GAME</button>
+    </form>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="textCenter whiteColor"><h2>GAME LIST</h2></div>
+            <div>
+                <table class="table table-striped table-dark" id="gamesList">
+                    <thead>
+                    <tr><th class="textCenter">Game ID</th><th>Created</th><th>Player 1</th><th>Player 2</th><th class="textCenter">Game Actions</th></tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="textCenter whiteColor"><h2>LEADERBOARD</h2></div>
+            <div>
+                <table class="table table-striped table-dark" id="scoreBoard">
+                    <thead>
+                    <tr><th>Name</th><th class="textCenter">Total Score</th><th class="textCenter">Won</th><th class="textCenter">Lost</th><th class="textCenter">Tied</th></tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="./js/popper.min.js"></script>
   <script src="./js/jquery-3.3.1.min.js"></script>
   <script src="./js/bootstrap.min.js"></script>
   <script src="./js/games.js"></script>

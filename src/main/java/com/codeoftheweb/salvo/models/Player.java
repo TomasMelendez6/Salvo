@@ -87,7 +87,7 @@ public class Player {
         dto.put("email", this.getUserName());
         return dto;
     }
-
+/*
     public Map<String, Object> makePlayerDTO2() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         Map<String, Object> score = new LinkedHashMap<String, Object>();
@@ -100,7 +100,7 @@ public class Player {
             score.put("tied", this.getByResult(0.5));
         return dto;
     }
-
+*/
     private double getByResult(double result) {
         List<Double> list = scores.stream().filter(score -> score.getScore() == result).map(score -> score.getScore()).collect(Collectors.toList());
 //        return list.stream().reduce((double) 0, (subtotal, score) -> subtotal + 1);

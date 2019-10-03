@@ -1,0 +1,514 @@
+body {
+    background: url(../img/back2.jpg);
+    font-family: 'Dosis', sans-serif;
+}
+
+.bannerTitle {
+    margin: 15px auto 0;
+    text-align: center;
+    background: #00000038;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.blockInline {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 8px;
+}
+
+#gameStateBlock {
+
+    background-color: #212529;
+    padding: 3px;
+    margin-bottom: 4px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.labelGame {
+    text-transform: uppercase;
+    color: #dee2e6;
+    font-size: 1.6em;
+    font-weight: 200;
+}
+.labelGameBig {
+    color: #f8f9fa;
+    font-weight: 600;
+    font-size: 1.6em;
+}
+
+#salvoBlock, #gameRecordBlock {
+    display: none;
+    margin-top: 10px;
+}
+
+.gridTopLabel {
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 0;
+}
+
+.shipPoslabel {
+    font-weight: 200;
+    color: #ffc107;
+}
+
+.bannerImage {
+    width: 85%;
+    margin-top: 8px;
+}
+
+.bannerImageGames {
+    width: 50%;
+    margin-top: 8px;
+}
+
+#loginFailed, #errorSignup, #errorShips, #errorSalvo {
+    display: none;
+    background-color: indianred;
+    color: white;
+    padding: 10px;
+}
+
+#signupSuccess {
+    display: none;
+    background-color: darkorange;
+    color: black;
+    padding: 10px;
+}
+
+#errorMsg {
+    display: none;
+}
+
+#loginSuccess, #logoutSuccess, #gameCreatedSuccess, #gameJoinedSuccess, #okShips, #okSalvo {
+    display: none;
+    background-color: forestgreen;
+    color: white;
+    padding: 10px;
+}
+
+#gamesList {
+    width: 75%;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+#gamesList tbody {
+    height: 200px;
+    overflow-y: auto;
+}
+
+#scoreBoard {
+    width: 60%;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+#currentPlayerName {
+
+}
+
+.shipCell {
+    /*background-color: yellowgreen;*/
+}
+
+.salvoCell {
+    background-image: url(../img/target.png);
+    background-size: cover;
+    /* background-color: #87cefa00; */
+    color: white;
+}
+
+.salvoCellSelf {
+    background-image: url(../img/targetself.png);
+    background-size: cover;
+    /* background-color: #87cefa00; */
+    color: #888888;
+}
+
+.hitCell {
+    background-image: url(../img/hit3.gif);
+    background-size: cover;
+}
+
+.verticalCenterFlex {
+    align-items: center;
+}
+
+.gridLabel {
+    text-align: center;
+}
+
+#gamePlayerDetails {
+    text-align: center;
+}
+
+.textCenter {
+    text-align: center;
+}
+
+/*SHIP PLACEMENT*/
+
+#grid1 {
+
+}
+
+.grid-stack-item-content {
+    opacity: 0.9;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+}
+
+.carrierHor {
+    background-image: url(../img/carrierhor.png);
+}
+
+.carrierVer {
+    background-image: url(../img/carrierver.png);
+}
+
+.battleshipHor {
+    background-image: url(../img/battleshiphor.png);
+}
+
+.battleshipVer {
+    background-image: url(../img/battleshipver.png);
+}
+
+.submarineHor {
+    background-image: url(../img/submarinehor.png);
+}
+
+.submarineVer {
+    background-image: url(../img/submarinever.png);
+}
+
+.destroyerHor {
+    background-image: url(../img/destroyerhor.png);
+}
+
+.destroyerVer {
+    background-image: url(../img/destroyerver.png);
+}
+
+.patrolboatHor {
+    background-image: url(../img/patrolboathor.png);
+}
+
+.patrolboatVer {
+    background-image: url(../img/patrolboatver.png);
+}
+
+.sidebar {
+    background: rgba(0, 255, 0, 0.1);
+    height: 150px;
+    padding: 25px 0;
+    text-align: center;
+}
+
+.gridShips {
+    width: 451px;
+    height: 451px;
+    background-image: url(../img/backships.gif);
+    margin: 0 auto;
+    background-size: cover;
+}
+
+.backShipPlacement {
+    background-image: url(../img/backshipplacement.gif);
+}
+.title {
+    text-align: center;
+}
+
+.rotateIcon {
+    height: 15px;
+}
+
+.rotateButton {
+    border: none;
+    background: none;
+
+}
+
+/* DivTable.com */
+.divTable{
+    display: table;
+    width: 440px;
+    margin: 0 auto;
+    background-size: cover;
+}
+
+.gameStateLabelBig {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #ffc107;
+}
+
+.gameStateLabel {
+    color: #dee2e6;
+}
+
+.divTableRow {
+    display: table-row;
+}
+.divTableHeading {
+    background-color: #EEE;
+    display: table-header-group;
+}
+
+.divTableCell, .divTableHead {
+    border: 1px dashed #6786ff;
+    border-left-width: 0;
+    border-top-width: 0;
+    display: table-cell;
+    /*padding: 3px 10px;*/
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+}
+
+.divTableHeading {
+    background-color: #EEE;
+    display: table-header-group;
+    font-weight: bold;
+}
+
+.divTableFoot {
+    background-color: #EEE;
+    display: table-footer-group;
+    font-weight: bold;
+}
+
+.divTableBody {
+    display: table-row-group;
+}
+
+img {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+img{-webkit-user-drag: none;}
+
+button:focus {
+    outline: none;
+}
+
+.shipDragging {
+    cursor: -webkit-grabbing;
+    cursor:    -moz-grabbing;
+    cursor:         grabbing;
+}
+
+.columnTurn {
+    width: 20%;
+}
+
+.columnDamages {
+    width: 80%;
+}
+
+.hitblast {
+    width: 12px;
+}
+
+#placingShipsBoard {
+    display: none;
+    background: #000000bf;
+    width: 80%;
+    margin: 0 auto;
+    padding: 25px;
+    border-radius: 1.5em;
+    margin-top: 15px;
+}
+
+#gameRecordOppTable, #gameRecordSelfTable {
+    opacity: 0.8;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+    padding: .25rem;
+    font-weight: 200;
+}
+
+.form-inline > * {
+    margin: 3px 6px !important;
+}
+
+#login-form {
+    justify-content: flex-end;
+    color: white;
+}
+
+#username, #password {
+    background-color: #f8f9fa94;
+}
+
+.whiteColor {
+    color: white;
+    margin-top: 10px;
+}
+
+.table th {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.yellow500 {
+    font-weight: 600;
+    color: #ffc107;
+}
+
+#scoreBoard > tbody > tr:first-child > td {
+    color: #ffc107;
+}
+
+#createGame {
+    margin-top: 10px;
+}
+
+#loginBlock {
+    margin-top: 10px;
+}
+
+.currentPlayerContainer {
+    text-align: center;
+}
+
+#currentPlayer {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.placeshipsInstructions {
+
+    width: 75%;
+    margin: 10px auto 10px;
+    font-size: 1.2em;
+    color: white;
+}
+
+#save-grid {
+    font-size: 1.3em;
+}
+
+#battleGrids {
+    display: none;
+}
+
+.movingMsgBig {
+    margin-top: 25px;
+    font-size: 2.5em;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 1em;
+}
+
+.defcon5 {
+    color:green;
+    font-size: 1.3em;
+    font-weight: 800;
+}
+
+.defcon4 {
+    color: #789c00;
+    font-size: 1.3em;
+    font-weight: 800;
+}
+
+.defcon3 {
+    color: yellow;
+    font-size: 1.3em;
+    font-weight: 800;
+}
+
+.defcon2 {
+    color: orange;
+    font-size: 1.3em;
+    font-weight: 800;
+}
+
+.defcon1 {
+    color: indianred;
+    font-size: 1.3em;
+    font-weight: 800;
+}
+
+.defcon0 {
+    color: red;
+    font-size: 1.3em;
+    font-weight: 800;
+}
+
+#shipsLeftIcons, #shipsLeftIconsOpp {
+    margin-bottom: 8px;
+}
+
+@media (min-width: 930px) {
+    .col-sm-6 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 929px) and (min-width: 576px) {
+    .col-sm-6 {
+
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+        -webkit-box-flex: unset;
+        flex: none;
+        max-width: unset;
+    }
+}
+
+.shipsImgOnSelfGridVer {
+    position: absolute;
+    width: 40px;
+    margin-left: -20px;
+}
+
+.shipsImgOnSelfGridHor {
+    position: absolute;
+    height: 40px;
+    margin-left: -20px;
+}
+
+.selfTable {
+    background-image: url(../img/backshipplacement.gif);
+    opacity: 0.9;
+    color: #888888;
+    font-size: 0.8em;
+}
+
+.oppTable {
+    background-image: url(../img/backships.gif);
+    opacity: 0.9;
+    color: #d8dce0;
+    font-size: 0.8em;
+}
+
+.selfTdCell {
+    border: 1px dashed #eab105;
+    border-left-width: 0;
+    border-top-width: 0;
+
+}
+
+
