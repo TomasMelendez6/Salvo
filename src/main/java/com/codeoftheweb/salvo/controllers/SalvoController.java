@@ -7,6 +7,7 @@ import com.codeoftheweb.salvo.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -34,15 +35,19 @@ public class SalvoController {
     @RequestMapping("/games")
     public Map<String, Object> getAllGames2(Authentication authentication){
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("player", makeCurrentPlayerDTO(authentication));
+        if(makeCurrentPlayerDTO(authentication) != null){
+            dto.put("player", makeCurrentPlayerDTO(authentication));
+        }
+        else{
+            dto.put("player", "Guest");
+        }
         dto.put("games", getAllGames());
         return dto;
     }
 
     public Map<String, Object> makeCurrentPlayerDTO(Authentication authentication){
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        Player p = new Player();
-        p = getPlayerLogin(authentication);
+        Player p =  getPlayerLogin(authentication);
         if(p != null){
             dto.put("id", p.getId());
             dto.put("userName", p.getUserName());
@@ -56,7 +61,7 @@ public class SalvoController {
     private Player getPlayerLogin(Authentication authentication) {
         List<Player> listPlayerLogin = new ArrayList<>();
         // List players login
-        if (authentication != null) {
+        if (!isGuest(authentication)) {
             listPlayerLogin = playerRepo.findAll()
                     .stream()
                     .filter(player -> player.getUserName().equals(authentication.getName()))
@@ -69,6 +74,10 @@ public class SalvoController {
             return listPlayerLogin.get(0);
         }
 
+    }
+
+    private boolean isGuest(Authentication authentication) {
+        return authentication == null || authentication instanceof AnonymousAuthenticationToken;
     }
 
     public List<Map<String, Object>> getAllGames() {
@@ -95,9 +104,9 @@ public class SalvoController {
                 .collect(Collectors.toList());
     }
 
-    @RequestMapping(path = "/register", method = RequestMethod.POST)
+    @RequestMapping(path = "/players", method = RequestMethod.POST)
     public ResponseEntity<Object> register(
-            @RequestParam String userName, @RequestParam String password) {
+                @RequestParam String userName, @RequestParam String password) {
 
         if (userName.isEmpty() || password.isEmpty()) {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);

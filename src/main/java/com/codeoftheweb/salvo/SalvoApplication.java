@@ -203,24 +203,22 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
-				.authorizeRequests()
-
-				//.antMatchers("/web/game_2.html").permitAll()
-				//.antMatchers("/api/css/games.css").permitAll()
-				.antMatchers("/web/**").permitAll()
-				.antMatchers("/**").hasAuthority("USER")
-				.and().formLogin();
-		/*http.formLogin()
+		http.authorizeRequests()
+            .antMatchers("/web/**").permitAll()
+            .antMatchers("/api/games").permitAll()
+            .antMatchers("/api/leaderBoard").permitAll()
+            .antMatchers("/api/players").permitAll()
+            .antMatchers("/**").hasAuthority("USER");
+		http.formLogin()
 				.usernameParameter("name")
 				.passwordParameter("pwd")
 				.loginPage("/api/login");
-		*/http.logout().logoutUrl("/api/logout");
+		http.logout().logoutUrl("/api/logout");
 
 
-
+        http.csrf().disable();
 		// if user is not authenticated, just send an authentication failure response
-		//http.exceptionHandling().authenticationEntryPoint((req, res, exc) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED));
+		http.exceptionHandling().authenticationEntryPoint((req, res, exc) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED));
 
 		// if login is successful, just clear the flags asking for authentication
 		http.formLogin().successHandler((req, res, auth) -> clearAuthenticationAttributes(req));
