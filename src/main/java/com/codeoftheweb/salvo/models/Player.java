@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Entity
 public class Player {
-    //Atributos
+    //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -25,10 +25,10 @@ public class Player {
     private String password;
 
     @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
-    Set<GamePlayer> gamePlayers;
+    private Set<GamePlayer> gamePlayers;
 
     @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
-    Set<Score> scores;
+    private Set<Score> scores;
 
 
 
@@ -72,7 +72,7 @@ public class Player {
         this.password = password;
     }
 
-    //Motodos
+    //Methods
     public void addGamePlayer(GamePlayer gamePlayer) {
         gamePlayers.add(gamePlayer);
     }
@@ -88,6 +88,9 @@ public class Player {
         return dto;
     }
 /*
+       //Codigo hecho para /api/leaderBoard, no se borro por si se llega a necesitar
+
+    //DTO para agregar informacion de un player a la tabla de leaderboard.
     public Map<String, Object> makePlayerDTO2() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         Map<String, Object> score = new LinkedHashMap<String, Object>();
@@ -100,16 +103,15 @@ public class Player {
             score.put("tied", this.getByResult(0.5));
         return dto;
     }
-*/
+
     private double getByResult(double result) {
-        List<Double> list = scores.stream().filter(score -> score.getScore() == result).map(score -> score.getScore()).collect(Collectors.toList());
-//        return list.stream().reduce((double) 0, (subtotal, score) -> subtotal + 1);
-        return list.stream().count();
+        return scores.stream().filter(score -> score.getScore() == result)
+                .map(score -> score.getScore()).count();
     }
 
     private double getTotal() {
         List<Double> list = scores.stream().map(score -> score.getScore()).collect(Collectors.toList());
         return list.stream().reduce((double) 0, (subtotal, score) -> subtotal + score);
     }
-
+*/
 }

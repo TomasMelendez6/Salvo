@@ -8,7 +8,7 @@ import java.util.*;
 
 @Entity
 public class Ship {
-
+    //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -24,6 +24,7 @@ public class Ship {
     @Column(name="shipLocations")
     private Set<String> shipLocations = new HashSet<>();
 
+    //Getters
     public Ship() {
     }
 
@@ -54,10 +55,11 @@ public class Ship {
         shipLocations.add(shipLocation);
     }
 
+    //DTO del ship
     public Map<String, Object> makeShipDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("type", this.getType());
-        dto.put("shipLocations", this.getShipLocations());
+        dto.put("locations", this.getShipLocations());
         return dto;
     }
 }

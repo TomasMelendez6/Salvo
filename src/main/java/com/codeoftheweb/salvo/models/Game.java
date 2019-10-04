@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Entity
 public class Game {
-    //Atributos
+    //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -24,8 +24,7 @@ public class Game {
 
 
 
-    //Constructor
-
+    //Constructors
     public Game() {
     }
 
@@ -41,6 +40,7 @@ public class Game {
     public Date getCreationDate() {
         return creationDate;
     }
+
     @JsonIgnore
     public Set<GamePlayer> getGamePlayers() {
         return gamePlayers;
@@ -59,15 +59,17 @@ public class Game {
         scores.add(score);
     }
 
+    //Genero un DTO de game listarlo en el controller y obtener toda la info de todos los games.
     public Map<String, Object> makeGameDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("id", this.getId());
         dto.put("created", this.getCreationDate());
-        dto.put("players", this.getAllGamePlayers(getGamePlayers()));
+        dto.put("gamePlayers", this.getAllGamePlayers(getGamePlayers()));
         dto.put("scores", getAllScoresFromGamePlayers());
         return dto;
     }
 
+    //lista de DTO de todos los GP para cada game
     public List<Map<String, Object>> getAllGamePlayers(Set<GamePlayer> gamePlayers) {
         return gamePlayers
                 .stream()
@@ -75,6 +77,7 @@ public class Game {
                 .collect(Collectors.toList());
     }
 
+    //Lista de Data Transfer Object de todos los salvoes correspondientes a cada GP de cada Game.
     public List<Map<String, Object>> getAllSalvoesFromGamePlayers() {
         return gamePlayers
                 .stream()
@@ -83,8 +86,8 @@ public class Game {
                 .collect(Collectors.toList());
     }
 
+    //Lista de DTO de todos los puntajes de cada GP de cada game
     public List<Map<String, Object>> getAllScoresFromGamePlayers() {
-
         return this.scores.stream()
                 .map(score -> score.makeScoreDTO())
                 .collect(Collectors.toList());

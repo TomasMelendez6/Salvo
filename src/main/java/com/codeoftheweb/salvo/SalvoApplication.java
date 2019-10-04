@@ -176,6 +176,7 @@ public class SalvoApplication {
 	}
 }
 
+//Subclass to give Spring a method to get the information of players and authenticate them
 @Configuration
 class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
@@ -197,6 +198,7 @@ class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
 }
 
+//subclass to tell Spring who is authorized to see what
 @EnableWebSecurity
 @Configuration
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
