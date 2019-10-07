@@ -44,7 +44,6 @@ public class GamePlayer {
     }
 
 
-
     //Getters
     public long getId() {
         return id;
@@ -74,7 +73,15 @@ public class GamePlayer {
 
 
     //Methods
+    public void addShip(Ship ship) {
+        ships.add(ship);
+    }
 
+    public void addSalvo(Salvo salvo) {
+        salvoes.add(salvo);
+    }
+
+    //Genero un DTO para GP que incluye los datos del usuario
     public Map<String, Object> makeGamePlayerDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("id", this.getId());
@@ -82,14 +89,17 @@ public class GamePlayer {
         return dto;
     }
 
-
+    //Lista de DTO de cada barco para cada GP
     public List<Map<String, Object>> getAllShips() {
         return ships
                 .stream()
                 .map(ship -> ship.makeShipDTO())
                 .collect(Collectors.toList());
     }
-
+    /*DTO para obtener datos de el game correspondente al gamePlayer que utiliza el metodo,
+    * brinda informacion sobre ambos gp relacionados al game en cuestion,
+    * tambien contiene dto de los ships gp principal y sus salvoes.
+    * */
     public Map<String, Object> makeGamePlayerDTO2() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("id", this.game.getId());
@@ -101,12 +111,5 @@ public class GamePlayer {
 
     }
 
-    public void addShip(Ship ship) {
-        ships.add(ship);
-    }
-
-    public void addSalvo(Salvo salvo) {
-        salvoes.add(salvo);
-    }
 
 }

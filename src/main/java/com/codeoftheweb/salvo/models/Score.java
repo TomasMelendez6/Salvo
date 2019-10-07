@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Entity
 public class Score {
-
+    //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -64,6 +64,7 @@ public class Score {
     }
 
     //Methods
+    //DTO del score
     public Map<String, Object> makeScoreDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("player", this.player.getId());

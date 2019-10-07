@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 public class Salvo {
-
+    //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -24,8 +24,8 @@ public class Salvo {
     private GamePlayer gamePlayer;
 
     @ElementCollection
-    @Column(name="salvoesLocations")
-    private Set<String> salvoesLocations = new HashSet<>();
+    @Column(name="salvoLocations")
+    private Set<String> salvoLocations = new HashSet<>();
 
     //Constructors
     public Salvo() {
@@ -34,12 +34,10 @@ public class Salvo {
     public Salvo(int turno, GamePlayer gamePlayer, Set<String> salvoesLocations) {
         this.turno = turno;
         this.gamePlayer = gamePlayer;
-        this.salvoesLocations = salvoesLocations;
+        this.salvoLocations = salvoesLocations;
     }
 
     //Getters
-
-
     public long getId() {
         return id;
     }
@@ -53,20 +51,20 @@ public class Salvo {
     }
 
     public Set<String> getSalvoesLocations() {
-        return salvoesLocations;
+        return salvoLocations;
     }
 
     //Methods
-
     public void addSalvoLocation(String salvoLocation) {
-        salvoesLocations.add(salvoLocation);
+        salvoLocations.add(salvoLocation);
     }
 
+    //DTO de salvo
     public Map<String, Object> makeSalvoDTO(){
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("turn", this.getTurno());
         dto.put("player", this.getGamePlayer().getPlayer().getId());
-        dto.put("salvoLocations", this.getSalvoesLocations());
+        dto.put("locations", this.getSalvoesLocations());
         return dto;
     }
 

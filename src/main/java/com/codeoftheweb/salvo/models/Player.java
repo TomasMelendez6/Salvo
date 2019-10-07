@@ -3,6 +3,7 @@ package com.codeoftheweb.salvo.models;
 import com.codeoftheweb.salvo.models.GamePlayer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.LinkedHashMap;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Entity
 public class Player {
-    //Atributos
+    //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -24,10 +25,10 @@ public class Player {
     private String password;
 
     @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
-    Set<GamePlayer> gamePlayers;
+    private Set<GamePlayer> gamePlayers;
 
     @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
-    Set<Score> scores;
+    private Set<Score> scores;
 
 
 
@@ -62,6 +63,7 @@ public class Player {
         return scores;
     }
 
+
     //Setters
     public void setUserName(String userName) {
         this.userName = userName;
@@ -71,7 +73,7 @@ public class Player {
         this.password = password;
     }
 
-    //Motodos
+    //Methods
     public void addGamePlayer(GamePlayer gamePlayer) {
         gamePlayers.add(gamePlayer);
     }
@@ -86,7 +88,10 @@ public class Player {
         dto.put("email", this.getUserName());
         return dto;
     }
+/*
+       //Codigo hecho para /api/leaderBoard, no se borro por si se llega a necesitar
 
+    //DTO para agregar informacion de un player a la tabla de leaderboard.
     public Map<String, Object> makePlayerDTO2() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         Map<String, Object> score = new LinkedHashMap<String, Object>();
@@ -101,14 +106,19 @@ public class Player {
     }
 
     private double getByResult(double result) {
+<<<<<<< HEAD
         List<Double> list = scores.stream().filter(score -> score.getScore() == result).map(score -> score.getScore()).collect(Collectors.toList());
         //return list.stream().reduce((double) 0, (subtotal, score) -> subtotal + 1);
         return list.stream().count();
+=======
+        return scores.stream().filter(score -> score.getScore() == result)
+                .map(score -> score.getScore()).count();
+>>>>>>> updates
     }
 
     private double getTotal() {
         List<Double> list = scores.stream().map(score -> score.getScore()).collect(Collectors.toList());
         return list.stream().reduce((double) 0, (subtotal, score) -> subtotal + score);
     }
-
+*/
 }
