@@ -129,30 +129,30 @@ public class SalvoController {
     }
 
     //DTO to confirm the creation game
-    private Map<String, Object> makeMap(String key, long id) {
+    private Map<String, Object> makeMap(String key, Object value) {
         Map<String, Object> map = new HashMap<>();
-        map.put(key, id);
+        map.put(key, value);
         return map;
     }
 
     //Method for the "Join game" button in the front end.
     //this method will verify the player credentials.
-    @RequestMapping(path = "/game/{gameId}/players", method = RequestMethod.POST)
-    public ResponseEntity<String> joinGame(Authentication authentication, @PathVariable long gameId){
+    @RequestMapping(path = "/game/{gameid}/players", method = RequestMethod.POST)
+    public ResponseEntity<Object> joinGame(Authentication authentication, @PathVariable long gameid){
         if(isGuest(authentication)){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        Game cg = gameRepo.findById(gameId).get();
+        Game cg = gameRepo.findById(gameid).get();
         if (cg == null){
-            return new ResponseEntity<>("No such game", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(makeMap("error", "No such game"), HttpStatus.FORBIDDEN);
         }
-        if(cg.getGamePlayers().stream().count() < 2){
-            return new ResponseEntity<>("Game is full", HttpStatus.FORBIDDEN);
+        if(cg.getGamePlayers().stream().count() > 1){
+            return new ResponseEntity<>(makeMap("error", "Game is full"), HttpStatus.FORBIDDEN);
         }
         Date d1 = new Date();
-        Player plog = playerRepo.findByUserName(authentication.getName());
-        GamePlayer gp = gamePlayerRepo.save(new GamePlayer(d1, plog, cg));
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        Player pLog = playerRepo.findByUserName(authentication.getName());
+        GamePlayer gp = gamePlayerRepo.save(new GamePlayer(d1, pLog, cg));
+        return new ResponseEntity<>(makeMap("gpid", gp.getId()), HttpStatus.CREATED);
     }
 
 }
