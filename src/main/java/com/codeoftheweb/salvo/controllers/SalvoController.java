@@ -1,11 +1,7 @@
 package com.codeoftheweb.salvo.controllers;
 
-import com.codeoftheweb.salvo.models.Game;
-import com.codeoftheweb.salvo.models.GamePlayer;
-import com.codeoftheweb.salvo.models.Player;
-import com.codeoftheweb.salvo.repositories.GamePlayerRepository;
-import com.codeoftheweb.salvo.repositories.GameRepository;
-import com.codeoftheweb.salvo.repositories.PlayerRepository;
+import com.codeoftheweb.salvo.models.*;
+import com.codeoftheweb.salvo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +28,12 @@ public class SalvoController {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ShipRepository shipRepo;
+
+    @Autowired
+    private SalvoRepository salvoRepo;
 
     //Methods
     /*DTO of player information
@@ -62,23 +64,13 @@ public class SalvoController {
                 .map(game -> game.makeGameDTO())
                 .collect(Collectors.toList());
     }
-/*
-    //DTO of the GP with the id equal to the URL parameter
-    @RequestMapping("/game_view/{gamePlayerId}")
-    public Map<String, Object> getSomething(@PathVariable Long gamePlayerId){
-        return gamePlayerRepo
-                .findById(gamePlayerId)
-                .get()
-                .makeGamePlayerDTO2();
-    }
-*/
 
     //DTO del gp con id igual al id que me pasan si y solo si el que busca esa URL tiene permiso de ver
     @RequestMapping("/game_view/{gamePlayerId}")
     public ResponseEntity<Map<String, Object>> getGameView(Authentication authentication, @PathVariable long gamePlayerId){
         GamePlayer gp = gamePlayerRepo.findById(gamePlayerId).get();
         if(authentication.getName() == gp.getPlayer().getUserName()) {
-            return ResponseEntity.ok().body(gp.makeGamePlayerDTO2());
+            return ResponseEntity.ok().body(gp.makeGamePlayerDTO2(authentication));
         }
         else{
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -128,7 +120,7 @@ public class SalvoController {
         return new ResponseEntity<>(makeMap("gpid", gp.getId()), HttpStatus.CREATED);
     }
 
-    //DTO to confirm the creation game
+    //mathod to make a DTO with a key and a value
     private Map<String, Object> makeMap(String key, Object value) {
         Map<String, Object> map = new HashMap<>();
         map.put(key, value);
@@ -143,8 +135,11 @@ public class SalvoController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         Game cg = gameRepo.findById(gameid).get();
-        if (cg == null){
+        if (!gameRepo.findById(gameid).isPresent()){
             return new ResponseEntity<>(makeMap("error", "No such game"), HttpStatus.FORBIDDEN);
+        }
+        if(cg.getAllGamePlayers().toString().contains(authentication.getName())){
+            return new ResponseEntity<>("You can't play against yourself", HttpStatus.FORBIDDEN);
         }
         if(cg.getGamePlayers().stream().count() > 1){
             return new ResponseEntity<>(makeMap("error", "Game is full"), HttpStatus.FORBIDDEN);
@@ -155,5 +150,59 @@ public class SalvoController {
         return new ResponseEntity<>(makeMap("gpid", gp.getId()), HttpStatus.CREATED);
     }
 
+    //Method for the "add ships" button in the front end.
+    //this method will verify the player credentials.
+    @RequestMapping(path = "/games/players/{gamePlayerId}/ships" , method = RequestMethod.POST)
+    public ResponseEntity<Object> addShips(Authentication authentication,
+                                           @PathVariable long gamePlayerId,
+                                            @RequestBody Set<Ship> ships){
+        if(isGuest(authentication)){
+            return new ResponseEntity<>(makeMap("error", "there is no current user logged in"), HttpStatus.UNAUTHORIZED);
+        }
+        GamePlayer gp = gamePlayerRepo.findById(gamePlayerId).orElse(null);
+        if(gp == null){
+            return new ResponseEntity<>(makeMap("error", "there is no game player with the given ID"), HttpStatus.UNAUTHORIZED);
+        }
+        if(gp.getPlayer().getId() != playerRepo.findByUserName(authentication.getName()).getId()){
+            return new ResponseEntity<>(makeMap("error", "the current user is not the game player the ID references"), HttpStatus.UNAUTHORIZED);
+        }
+        if(!gp.getShips().isEmpty()){      //verifying if the gp has all the ships that the game admit
+            return new ResponseEntity<>(makeMap("error", "the user already has ships placed"), HttpStatus.FORBIDDEN );
+        }
+        for (Ship ship:ships){
+            ship.setGamePlayer(gp);
+            shipRepo.save(ship);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
+    }
+
+    //Method for the "add salvos" button in the front end.
+    //this method will verify the player credentials.
+    @RequestMapping(path = "/games/players/{gamePlayerId}/salvos" , method = RequestMethod.POST)
+    public ResponseEntity<Object> addSalvos(Authentication authentication,
+                                           @PathVariable long gamePlayerId,
+                                           @RequestBody Salvo salvo){
+        if(isGuest(authentication)){
+            return new ResponseEntity<>(makeMap("error", "there is no current user logged in"), HttpStatus.UNAUTHORIZED);
+        }
+        GamePlayer gp = gamePlayerRepo.findById(gamePlayerId).orElse(null);
+        if(gp == null){
+            return new ResponseEntity<>(makeMap("error", "there is no game player with the given ID"), HttpStatus.UNAUTHORIZED);
+        }
+        if(gp.getPlayer().getId() != playerRepo.findByUserName(authentication.getName()).getId()){
+            return new ResponseEntity<>(makeMap("error", "the current user is not the game player the ID references"), HttpStatus.UNAUTHORIZED);
+        }
+        Set<Salvo> salvoes = gp.getSalvoes();
+        for (Salvo salvo1:salvoes) {
+            if(salvo.getTurno() == salvo1.getTurno()){      //Verifying if this turn already has salvos.
+                return new ResponseEntity<>(makeMap("error", "the user already has submitted a salvo for the turn listed"), HttpStatus.FORBIDDEN );
+            }
+        }
+        salvo.setGamePlayer(gp);
+        salvoRepo.save(salvo);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
+    }
 }
 

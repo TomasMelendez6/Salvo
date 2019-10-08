@@ -17,7 +17,7 @@ public class Salvo {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
 
-    private int turno;
+    private int turn;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="gamePlayer_id")
@@ -31,10 +31,15 @@ public class Salvo {
     public Salvo() {
     }
 
-    public Salvo(int turno, GamePlayer gamePlayer, Set<String> salvoesLocations) {
-        this.turno = turno;
+    public Salvo(int turno, GamePlayer gamePlayer, Set<String> salvosLocations) {
+        this.turn = turno;
         this.gamePlayer = gamePlayer;
-        this.salvoLocations = salvoesLocations;
+        this.salvoLocations = salvosLocations;
+    }
+
+    public Salvo(int turno, Set<String> salvoLocations) {
+        this.turn = turno;
+        this.salvoLocations = salvoLocations;
     }
 
     //Getters
@@ -43,15 +48,25 @@ public class Salvo {
     }
 
     public int getTurno() {
-        return turno;
+        return turn;
     }
 
     public GamePlayer getGamePlayer() {
         return gamePlayer;
     }
 
-    public Set<String> getSalvoesLocations() {
+    public Set<String> getSalvoLocations() {
         return salvoLocations;
+    }
+
+//Setters
+
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+    public void setSalvoLocations(Set<String> salvoLocations) {
+        this.salvoLocations = salvoLocations;
     }
 
     //Methods
@@ -64,8 +79,11 @@ public class Salvo {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("turn", this.getTurno());
         dto.put("player", this.getGamePlayer().getPlayer().getId());
-        dto.put("locations", this.getSalvoesLocations());
+        dto.put("locations", this.getSalvoLocations());
         return dto;
     }
 
+    public void setGamePlayer(GamePlayer gp) {
+        this.gamePlayer = gp;
+    }
 }

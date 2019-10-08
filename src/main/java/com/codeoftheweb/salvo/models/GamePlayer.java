@@ -2,6 +2,7 @@ package com.codeoftheweb.salvo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.Authentication;
 
 import javax.persistence.*;
 import java.util.*;
@@ -71,8 +72,7 @@ public class GamePlayer {
     }
 
 
-
-    //Methods
+   //Methods
     public void addShip(Ship ship) {
         ships.add(ship);
     }
@@ -100,16 +100,105 @@ public class GamePlayer {
     * brinda informacion sobre ambos gp relacionados al game en cuestion,
     * tambien contiene dto de los ships gp principal y sus salvoes.
     * */
-    public Map<String, Object> makeGamePlayerDTO2() {
+    public Map<String, Object> makeGamePlayerDTO2(Authentication authentication) {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("id", this.game.getId());
-        dto.put("created", this.game.getCreationDate());
-        dto.put("gamePlayers", this.game.getAllGamePlayers(this.game.getGamePlayers()));
-        dto.put("ships", this.getAllShips());
-        dto.put("salvoes", this.game.getAllSalvoesFromGamePlayers());
+        dto.put("id", game.getId());
+        dto.put("created", game.getCreationDate());
+        dto.put("gameState", "PLACESHIPS");
+        dto.put("gamePlayers", game.getAllGamePlayers());
+        dto.put("ships", getAllShips());
+        dto.put("salvoes", game.getAllSalvoesFromGamePlayers());
+        dto.put("hits", "");//makeHitsDTO());
         return dto;
 
     }
+/*
+    private Map<String, Object> makeHitsDTO() {
+        GamePlayer self = this;
+        GamePlayer opponent = getOpponent();
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        if (opponent != null){
+            dto.put("self", self.getAllSelfHits(opponent));
+            dto.put("opponent", opponent.getAllSelfHits(self));
+        }
+        else {
+            dto.put("self", "");
+            dto.put("opponent", "");
+        }
+        return dto;
+    }
+
+    private GamePlayer getOpponent() {
+        GamePlayer opponent = null;
+        for (GamePlayer gp: game.getGamePlayers()) {
+            if (gp.getId() != id){
+                opponent = gp;
+            }
+        }
+        return opponent;
+    }
+
+    public List<Map<String, Object>> getAllSelfHits(GamePlayer opponent) {
+        return salvoes
+                .stream()
+                .map(salvo -> makeSalvoDTO(opponent, salvo))
+                .collect(Collectors.toList());
+    }
+
+    private Map<String, Object> makeSalvoDTO(GamePlayer opponent, Salvo salvo) {
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        int contCarri = 0, contBattle = 0, contSub = 0, contDest = 0, contPat = 0;
+        //int contCarri2 = 0, contBattle2 = 0, contSub2 = 0, contDest2 = 0, contPat2 = 0;
+        List<String> listAux = null;
+        dto.put("turn", salvo.getTurno());
+        for (String location: salvo.getSalvoLocations()) {
+            for (Ship ship: opponent.getShips()) {
+                for (String location2: ship.getShipLocations()) {
+                    listAux.add(location);
+                    if (location.equals(location2)){
+
+
+                        REVISAR FUNCION DE FEDE Y JUANSE PARA SACAR ESTOS FOREACHs ASQUEROSOS.
+
+
+
+                        switch (ship.getType()){
+                            case "Carrier":
+                                contCarri ++;
+                                break;
+                            case "Battleship":
+                                contBattle ++;
+                                break;
+                            case "Submarine":
+                                contSub ++;
+                                break;
+                            case "Destroyer":
+                                contDest ++;
+                                break;
+                            case "Patrol":
+                                contPat ++;
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+        dto.put("hitLocations", listAux);
+        dto.put("damages", "makeDamageDTO(contCarri....)");
+        return dto;
+    }
+
+    public Map<String, Object> makerDTO(Salvo salvo) {
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        for (String location: salvo.getSalvoLocations()) {
+            if(ships.stream().map(ship -> ))
+        }
+        return dto;
+    }
+
+ */
+
+
 
 
 }

@@ -34,6 +34,10 @@ public class Ship {
         this.shipLocations = shipLocations;
     }
 
+    public Ship(String type, Set<String> shipLocations) {
+        this.type = type;
+        this.shipLocations = shipLocations;
+    }
     public long getId() {
         return id;
     }
@@ -44,6 +48,13 @@ public class Ship {
 
     public Set<String> getShipLocations() {
         return shipLocations;
+    }
+
+    //Setters
+
+
+    public void setGamePlayer(GamePlayer gamePlayer) {
+        this.gamePlayer = gamePlayer;
     }
 
     public GamePlayer getGamePlayer() {
@@ -61,5 +72,13 @@ public class Ship {
         dto.put("type", this.getType());
         dto.put("locations", this.getShipLocations());
         return dto;
+    }
+
+    @Override
+    public String toString() {
+        return "Ship{" +
+                "type='" + type + '\'' +
+                ", shipLocations=" + shipLocations +
+                '}';
     }
 }
