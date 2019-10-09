@@ -69,16 +69,10 @@ public class Ship {
     //DTO del ship
     public Map<String, Object> makeShipDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("type", this.getType());
-        dto.put("locations", this.getShipLocations());
+        dto.put("type", getType());
+        dto.put("locations", getShipLocations());
         return dto;
     }
 
-    @Override
-    public String toString() {
-        return "Ship{" +
-                "type='" + type + '\'' +
-                ", shipLocations=" + shipLocations +
-                '}';
-    }
+
 }

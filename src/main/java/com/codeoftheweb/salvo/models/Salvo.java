@@ -74,16 +74,16 @@ public class Salvo {
         salvoLocations.add(salvoLocation);
     }
 
+    public void setGamePlayer(GamePlayer gp) {
+        this.gamePlayer = gp;
+    }
+
     //DTO de salvo
     public Map<String, Object> makeSalvoDTO(){
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("turn", this.getTurno());
-        dto.put("player", this.getGamePlayer().getPlayer().getId());
-        dto.put("locations", this.getSalvoLocations());
+        dto.put("turn", getTurno());
+        dto.put("player", getGamePlayer().getPlayer().getId());
+        dto.put("locations", getSalvoLocations());
         return dto;
-    }
-
-    public void setGamePlayer(GamePlayer gp) {
-        this.gamePlayer = gp;
     }
 }

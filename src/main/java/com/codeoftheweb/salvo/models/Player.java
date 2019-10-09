@@ -82,43 +82,12 @@ public class Player {
         scores.add(score);
     }
 
+    //Player DTO
     public Map<String, Object> makePlayerDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("id", this.getId());
-        dto.put("email", this.getUserName());
-        return dto;
-    }
-/*
-       //Codigo hecho para /api/leaderBoard, no se borro por si se llega a necesitar
-
-    //DTO para agregar informacion de un player a la tabla de leaderboard.
-    public Map<String, Object> makePlayerDTO2() {
-        Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        Map<String, Object> score = new LinkedHashMap<String, Object>();
-        dto.put("id", this.getId());
-        dto.put("email", this.userName);
-        dto.put("score", score);
-            score.put("total", this.getTotal());
-            score.put("won", this.getByResult(1));
-            score.put("lost", this.getByResult(0));
-            score.put("tied", this.getByResult(0.5));
+        dto.put("id", getId());
+        dto.put("email", getUserName());
         return dto;
     }
 
-    private double getByResult(double result) {
-<<<<<<< HEAD
-        List<Double> list = scores.stream().filter(score -> score.getScore() == result).map(score -> score.getScore()).collect(Collectors.toList());
-        //return list.stream().reduce((double) 0, (subtotal, score) -> subtotal + 1);
-        return list.stream().count();
-=======
-        return scores.stream().filter(score -> score.getScore() == result)
-                .map(score -> score.getScore()).count();
->>>>>>> updates
-    }
-
-    private double getTotal() {
-        List<Double> list = scores.stream().map(score -> score.getScore()).collect(Collectors.toList());
-        return list.stream().reduce((double) 0, (subtotal, score) -> subtotal + score);
-    }
-*/
 }

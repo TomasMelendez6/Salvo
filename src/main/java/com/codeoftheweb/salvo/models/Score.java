@@ -64,12 +64,13 @@ public class Score {
     }
 
     //Methods
+
     //DTO del score
     public Map<String, Object> makeScoreDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("player", this.player.getId());
-        dto.put("score", this.getScore());
-        dto.put("finishDate", this.finishDate);
+        dto.put("player", getPlayer().getId());
+        dto.put("score", getScore());
+        dto.put("finishDate", getFinishDate());
 
         return dto;
     }

@@ -59,39 +59,5 @@ public class Game {
         scores.add(score);
     }
 
-    //Genero un DTO de game listarlo en el controller y obtener toda la info de todos los games.
-    public Map<String, Object> makeGameDTO() {
-        Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("id", this.getId());
-        dto.put("created", this.getCreationDate());
-        dto.put("gamePlayers", this.getAllGamePlayers());
-        dto.put("scores", getAllScoresFromGamePlayers());
-        return dto;
-    }
-
-    //lista de DTO de todos los GP para cada game
-    public List<Map<String, Object>> getAllGamePlayers() {
-        return gamePlayers
-                .stream()
-                .map(gamePlayer -> gamePlayer.makeGamePlayerDTO())
-                .collect(Collectors.toList());
-    }
-
-    //Lista de Data Transfer Object de todos los salvoes correspondientes a cada GP de cada Game.
-    public List<Map<String, Object>> getAllSalvoesFromGamePlayers() {
-        return gamePlayers
-                .stream()
-                .flatMap(gamePlayer -> gamePlayer.getSalvoes().stream())
-                .map(salvo -> salvo.makeSalvoDTO())
-                .collect(Collectors.toList());
-    }
-
-    //Lista de DTO de todos los puntajes de cada GP de cada game
-    public List<Map<String, Object>> getAllScoresFromGamePlayers() {
-        return this.scores.stream()
-                .map(score -> score.makeScoreDTO())
-                .collect(Collectors.toList());
-
-    }
 
 }
