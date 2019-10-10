@@ -21,8 +21,8 @@ public class Ship {
     private GamePlayer gamePlayer;
 
     @ElementCollection
-    @Column(name="shipLocations")
-    private Set<String> shipLocations = new HashSet<>();
+    @Column(name="locations")
+    private Set<String> locations = new HashSet<>();
 
     //Getters
     public Ship() {
@@ -31,12 +31,12 @@ public class Ship {
     public Ship(GamePlayer gamePlayer, String type, Set<String> shipLocations) {
         this.type = type;
         this.gamePlayer = gamePlayer;
-        this.shipLocations = shipLocations;
+        this.locations = shipLocations;
     }
 
     public Ship(String type, Set<String> shipLocations) {
         this.type = type;
-        this.shipLocations = shipLocations;
+        this.locations = shipLocations;
     }
     public long getId() {
         return id;
@@ -46,8 +46,8 @@ public class Ship {
         return type;
     }
 
-    public Set<String> getShipLocations() {
-        return shipLocations;
+    public Set<String> getLocations() {
+        return locations;
     }
 
     //Setters
@@ -63,14 +63,14 @@ public class Ship {
 
     //Metodos
     public void addShipLocation(String shipLocation) {
-        shipLocations.add(shipLocation);
+        locations.add(shipLocation);
     }
 
     //DTO del ship
     public Map<String, Object> makeShipDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("type", getType());
-        dto.put("locations", getShipLocations());
+        dto.put("locations", getLocations());
         return dto;
     }
 

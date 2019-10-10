@@ -3,148 +3,454 @@
 <head>
     <meta charset="UTF-8">
     <title>Ships locations!</title>
-    <link rel="stylesheet" type="text/css" href="./css/game.css">
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,600,800" rel="stylesheet">
+    <link rel="stylesheet" href="./css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./css/normalize.css"/>
+    <link rel="stylesheet" href="./css/main.css"/>
+    <link rel="stylesheet" href="./css/gridstack.css"/>
+    <link rel="stylesheet" href="./css/gridstack-extra.css"/>
+    <link rel="stylesheet" href="./css/style.css"/>
 </head>
 <body>
-<div class="container">
-    <div>
-        <span id="playerInfo"></span>
-    </div>
-    <div class="row">
-        <div class="col">
-            <section>
-                <h2>Game Board</h2>
-                <table border="1">
-                    <thead>
-                    <th></th>
-                    <th id="bth_0">1</th><th id="bth_1">2</th><th id="bth_2">3</th><th id="bth_3">4</th><th id="bth_4">5</th>
-                    <th id="bth_5">6</th><th id="bth_6">7</th><th id="bth_7">8</th><th id="bth_8">9</th><th id="bth_9">10</th>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>A</td>
-                        <td id="B_A1"></td><td id="B_A2"></td><td  id="B_A3"></td><td id="B_A4"></td><td  id="B_A5"></td>
-                        <td id="B_A6"></td><td id="B_A7"></td><td  id="B_A8"></td><td id="B_A9"></td><td  id="B_A10"></td>
-                    </tr>
-                    <tr>
-                        <td>B</td>
-                        <td id="B_B1"></td><td id="B_B2"></td><td id="B_B3"></td><td id="B_B4"></td><td id="B_B5"></td>
-                        <td id="B_B6"></td><td id="B_B7"></td><td id="B_B8"></td><td id="B_B9"></td><td id="B_B10"></td>
-                    </tr>
-                    <tr>
-                        <td>C</td>
-                        <td id="B_C1"></td><td id="B_C2"></td><td id="B_C3"></td><td id="B_C4"></td><td id="B_C5"></td>
-                        <td id="B_C6"></td><td id="B_C7"></td><td id="B_C8"></td><td id="B_C9"></td><td id="B_C10"></td>
-                    </tr>
-                    <tr>
-                        <td>D</td>
-                        <td id="B_D1"></td><td id="B_D2"></td><td id="B_D3"></td><td id="B_D4"></td><td id="B_D5"></td>
-                        <td id="B_D6"></td><td id="B_D7"></td><td id="B_D8"></td><td id="B_D9"></td><td id="B_D10"></td>
-                    </tr>
-                    <tr>
-                        <td>E</td>
-                        <td id="B_E1"></td><td id="B_E2"></td><td id="B_E3"></td><td id="B_E4"></td><td id="B_E5"></td>
-                        <td id="B_E6"></td><td id="B_E7"></td><td id="B_E8"></td><td id="B_E9"></td><td id="B_E10"></td>
-                    </tr>
-                    <tr>
-                        <td>F</td>
-                        <td id="B_F1"></td><td id="B_F2"></td><td id="B_F3"></td><td id="B_F4"></td><td id="B_F5"></td>
-                        <td id="B_F6"></td><td id="B_F7"></td><td id="B_F8"></td><td id="B_F9"></td><td id="B_F10"></td>
-                    </tr>
-                    <tr>
-                        <td>G</td>
-                        <td id="B_G1"></td><td id="B_G2"></td><td id="B_G3"></td><td id="B_G4"></td><td id="B_G5"></td>
-                        <td id="B_G6"></td><td id="B_G7"></td><td id="B_G8"></td><td id="B_G9"></td><td id="B_G10"></td>
-                    </tr>
-                    <tr>
-                        <td>H</td>
-                        <td id="B_H1"></td><td id="B_H2"></td><td id="B_H3"></td><td id="B_H4"></td><td id="B_H5"></td>
-                        <td id="B_H6"></td><td id="B_H7"></td><td id="B_H8"></td><td id="B_H9"></td><td id="HB_10"></td>
-                    </tr>
-                    <tr>
-                        <td>I</td>
-                        <td id="B_I1"></td><td id="B_I2"></td><td id="B_I3"></td><td id="B_I4"></td><td id="B_I5"></td>
-                        <td id="B_I6"></td><td id="B_I7"></td><td id="B_I8"></td><td id="B_I9"></td><td id="B_I10"></td>
-                    </tr>
-                    <tr>
-                        <td>J</td>
-                        <td id="B_J1"></td><td id="B_J2"></td><td id="B_J3"></td><td id="B_J4"></td><td id="B_J5"></td>
-                        <td id="B_J6"></td><td id="B_J7"></td><td id="B_J8"></td><td id="B_J9"></td><td id="B_J10"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </section>
+<div class="container-fluid">
+    <div class="bannerTitle">
+        <div class="row verticalCenterFlex">
+            <div class="col-sm-6">
+                <a href="games.html"><img class="bannerImage" src="img/titlebannersalvo.png"></a>
+            </div>
+            <div class="col-sm-6">
+                <div id="gamePlayerDetails" class="gameDetails blockInline"></div>
+                <div class="blockInline"><button id="logoutButton" class="btn btn-info">Log out</button></div>
+            </div>
         </div>
-        <div class="col">
-            <section>
-                <h2>Salvo board</h2>
-                <table border="1">
-                    <thead>
-                    <th></th>
-                    <th id="th_0">1</th><th id="th_1">2</th><th id="th_2">3</th><th id="th_3">4</th><th id="th_4">5</th>
-                    <th id="th_5">6</th><th id="th_6">7</th><th id="th_7">8</th><th id="th_8">9</th><th id="th_9">10</th>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>A</td>
-                        <td id="S_A1"></td><td id="S_A2"></td><td  id="S_A3"></td><td id="S_A4"></td><td  id="S_A5"></td>
-                        <td id="S_A6"></td><td id="S_A7"></td><td  id="S_A8"></td><td id="S_A9"></td><td  id="S_A10"></td>
-                    </tr>
-                    <tr>
-                        <td>B</td>
-                        <td id="S_B1"></td><td id="S_B2"></td><td id="S_B3"></td><td id="S_B4"></td><td id="S_B5"></td>
-                        <td id="S_B6"></td><td id="S_B7"></td><td id="S_B8"></td><td id="S_B9"></td><td id="S_B10"></td>
-                    </tr>
-                    <tr>
-                        <td>C</td>
-                        <td id="S_C1"></td><td id="S_C2"></td><td id="S_C3"></td><td id="S_C4"></td><td id="S_C5"></td>
-                        <td id="S_C6"></td><td id="S_C7"></td><td id="S_C8"></td><td id="S_C9"></td><td id="S_C10"></td>
-                    </tr>
-                    <tr>
-                        <td>D</td>
-                        <td id="S_D1"></td><td id="S_D2"></td><td id="S_D3"></td><td id="S_D4"></td><td id="S_D5"></td>
-                        <td id="S_D6"></td><td id="S_D7"></td><td id="S_D8"></td><td id="S_D9"></td><td id="S_D10"></td>
-                    </tr>
-                    <tr>
-                        <td>E</td>
-                        <td id="S_E1"></td><td id="S_E2"></td><td id="S_E3"></td><td id="S_E4"></td><td id="S_E5"></td>
-                        <td id="S_E6"></td><td id="S_E7"></td><td id="S_E8"></td><td id="S_E9"></td><td id="S_E10"></td>
-                    </tr>
-                    <tr>
-                        <td>F</td>
-                        <td id="S_F1"></td><td id="S_F2"></td><td id="S_F3"></td><td id="S_F4"></td><td id="S_F5"></td>
-                        <td id="S_F6"></td><td id="S_F7"></td><td id="S_F8"></td><td id="S_F9"></td><td id="S_F10"></td>
-                    </tr>
-                    <tr>
-                        <td>G</td>
-                        <td id="S_G1"></td><td id="S_G2"></td><td id="S_G3"></td><td id="S_G4"></td><td id="S_G5"></td>
-                        <td id="S_G6"></td><td id="S_G7"></td><td id="S_G8"></td><td id="S_G9"></td><td id="S_G10"></td>
-                    </tr>
-                    <tr>
-                        <td>H</td>
-                        <td id="S_H1"></td><td id="S_H2"></td><td id="S_H3"></td><td id="S_H4"></td><td id="S_H5"></td>
-                        <td id="S_H6"></td><td id="S_H7"></td><td id="S_H8"></td><td id="S_H9"></td><td id="S_H10"></td>
-                    </tr>
-                    <tr>
-                        <td>I</td>
-                        <td id="S_I1"></td><td id="S_I2"></td><td id="S_I3"></td><td id="S_I4"></td><td id="S_I5"></td>
-                        <td id="S_I6"></td><td id="S_I7"></td><td id="S_I8"></td><td id="S_I9"></td><td id="S_I10"></td>
-                    </tr>
-                    <tr>
-                        <td>J</td>
-                        <td id="S_J1"></td><td id="S_J2"></td><td id="S_J3"></td><td id="S_J4"></td><td id="S_J5"></td>
-                        <td id="S_J6"></td><td id="S_J7"></td><td id="S_J8"></td><td id="S_J9"></td><td id="S_J10"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </section>
+    </div>
+    <h3 id="logoutSuccess" class="textCenter">Logout Successful!</h3>
+    <div id="errorMsg" class="alert alert-danger textCenter"></div>
+    <div id="gameStateBlock" class="textCenter"></div>
+    <h3 id="okSalvo" class="textCenter"></h3>
+    <h3 id="errorSalvo" class="textCenter"></h3>
+
+
+    <div id="placingShipsBoard">
+        <div class="margin0auto">
+            <div class="blockInline">
+                <div id="gridShipsContainer" class="gridShips backShipPlacement">
+                    <div class="grid-stack grid-stack-10" id="grid1">
+                    </div>
+                </div>
+            </div>
+            <div class="blockInline whiteColor">
+                <div class="shipTypeLabel">CARRIER <span class="shipPoslabel" id="carrierPosition"></span></div>
+                <div class="shipTypeLabel">BATTLESHIP <span class="shipPoslabel" id="battleshipPosition"></span></div>
+                <div class="shipTypeLabel">SUBMARINE <span class="shipPoslabel" id="submarinePosition"></span></div>
+                <div class="shipTypeLabel">DESTROYER <span class="shipPoslabel" id="destroyerPosition"></span></div>
+                <div class="shipTypeLabel">PATROL BOAT <span class="shipPoslabel" id="patrolboatPosition"></span></div>
+                <div class="movingMsgBig"></div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-12 textCenter">
+            <div class="placeshipsInstructions">Place your ships by dragging and dropping them onto desired positions.<br>You can rotate ships by clicking <img class="rotateIcon" src="img/rotatewhite.png"> icon on every ship.<br>When you finish positioning click on PLACE SHIPS button
+                to begin the battle!</div>
+            <h3 id="okShips" class="textCenter"></h3>
+            <h3 id="errorShips" class="textCenter"></h3>
+            <button class="btn btn-outline-light" id="save-grid">PLACE SHIPS!</button>
+            <br>
+        </div>
+    </div>
+    <div id="battleGrids">
+        <div class="row">
+
+            <div class="col-sm-6">
+                <div class="textCenter">
+                    <h4 class="gridTopLabel">Your Ships</h4>
+                    <h4 class="textCenter" id="currentPlayerName"></h4>
+                </div>
+                <div id="shipsLeftIcons" class="textCenter">
+                    <span id="carrierIcon"><img src="img/carrierafloat.png"></span>
+                    <span id="battleshipIcon"><img src="img/battleshipafloat.png"></span>
+                    <span id="submarineIcon"><img src="img/submarineafloat.png"></span>
+                    <span id="destoyerIcon"><img src="img/destroyerafloat.png"></span>
+                    <span id="patrolboatIcon"><img src="img/patrolboatafloat.png"></span>
+                </div>
+
+                <div class="divTable selfTable">
+                    <div class="divTableBody">
+                        <div class="divTableRow">
+                            <div class="divTableCell selfTdCell"></div>
+                            <div class="divTableCell selfTdCell">1</div>
+                            <div class="divTableCell selfTdCell">2</div>
+                            <div class="divTableCell selfTdCell">3</div>
+                            <div class="divTableCell selfTdCell">4</div>
+                            <div class="divTableCell selfTdCell">5</div>
+                            <div class="divTableCell selfTdCell">6</div>
+                            <div class="divTableCell selfTdCell">7</div>
+                            <div class="divTableCell selfTdCell">8</div>
+                            <div class="divTableCell selfTdCell">9</div>
+                            <div class="divTableCell selfTdCell">10</div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell selfTdCell">A</div>
+                            <div class="divTableCell selfTdCell" id="p1_A1"></div>
+                            <div class="divTableCell selfTdCell" id="p1_A2"></div>
+                            <div class="divTableCell selfTdCell" id="p1_A3"></div>
+                            <div class="divTableCell selfTdCell" id="p1_A4"></div>
+                            <div class="divTableCell selfTdCell" id="p1_A5"></div>
+                            <div class="divTableCell selfTdCell" id="p1_A6"></div>
+                            <div class="divTableCell selfTdCell" id="p1_A7"></div>
+                            <div class="divTableCell selfTdCell" id="p1_A8"></div>
+                            <div class="divTableCell selfTdCell" id="p1_A9"></div>
+                            <div class="divTableCell selfTdCell" id="p1_A10"></div>
+
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell selfTdCell">B</div>
+                            <div class="divTableCell selfTdCell" id="p1_B1"></div>
+                            <div class="divTableCell selfTdCell" id="p1_B2"></div>
+                            <div class="divTableCell selfTdCell" id="p1_B3"></div>
+                            <div class="divTableCell selfTdCell" id="p1_B4"></div>
+                            <div class="divTableCell selfTdCell" id="p1_B5"></div>
+                            <div class="divTableCell selfTdCell" id="p1_B6"></div>
+                            <div class="divTableCell selfTdCell" id="p1_B7"></div>
+                            <div class="divTableCell selfTdCell" id="p1_B8"></div>
+                            <div class="divTableCell selfTdCell" id="p1_B9"></div>
+                            <div class="divTableCell selfTdCell" id="p1_B10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell selfTdCell">C</div>
+                            <div class="divTableCell selfTdCell" id="p1_C1"></div>
+                            <div class="divTableCell selfTdCell" id="p1_C2"></div>
+                            <div class="divTableCell selfTdCell" id="p1_C3"></div>
+                            <div class="divTableCell selfTdCell" id="p1_C4"></div>
+                            <div class="divTableCell selfTdCell" id="p1_C5"></div>
+                            <div class="divTableCell selfTdCell" id="p1_C6"></div>
+                            <div class="divTableCell selfTdCell" id="p1_C7"></div>
+                            <div class="divTableCell selfTdCell" id="p1_C8"></div>
+                            <div class="divTableCell selfTdCell" id="p1_C9"></div>
+                            <div class="divTableCell selfTdCell" id="p1_C10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell selfTdCell">D</div>
+                            <div class="divTableCell selfTdCell" id="p1_D1"></div>
+                            <div class="divTableCell selfTdCell" id="p1_D2"></div>
+                            <div class="divTableCell selfTdCell" id="p1_D3"></div>
+                            <div class="divTableCell selfTdCell" id="p1_D4"></div>
+                            <div class="divTableCell selfTdCell" id="p1_D5"></div>
+                            <div class="divTableCell selfTdCell" id="p1_D6"></div>
+                            <div class="divTableCell selfTdCell" id="p1_D7"></div>
+                            <div class="divTableCell selfTdCell" id="p1_D8"></div>
+                            <div class="divTableCell selfTdCell" id="p1_D9"></div>
+                            <div class="divTableCell selfTdCell" id="p1_D10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell selfTdCell">E</div>
+                            <div class="divTableCell selfTdCell" id="p1_E1"></div>
+                            <div class="divTableCell selfTdCell" id="p1_E2"></div>
+                            <div class="divTableCell selfTdCell" id="p1_E3"></div>
+                            <div class="divTableCell selfTdCell" id="p1_E4"></div>
+                            <div class="divTableCell selfTdCell" id="p1_E5"></div>
+                            <div class="divTableCell selfTdCell" id="p1_E6"></div>
+                            <div class="divTableCell selfTdCell" id="p1_E7"></div>
+                            <div class="divTableCell selfTdCell" id="p1_E8"></div>
+                            <div class="divTableCell selfTdCell" id="p1_E9"></div>
+                            <div class="divTableCell selfTdCell" id="p1_E10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell selfTdCell">F</div>
+                            <div class="divTableCell selfTdCell" id="p1_F1"></div>
+                            <div class="divTableCell selfTdCell" id="p1_F2"></div>
+                            <div class="divTableCell selfTdCell" id="p1_F3"></div>
+                            <div class="divTableCell selfTdCell" id="p1_F4"></div>
+                            <div class="divTableCell selfTdCell" id="p1_F5"></div>
+                            <div class="divTableCell selfTdCell" id="p1_F6"></div>
+                            <div class="divTableCell selfTdCell" id="p1_F7"></div>
+                            <div class="divTableCell selfTdCell" id="p1_F8"></div>
+                            <div class="divTableCell selfTdCell" id="p1_F9"></div>
+                            <div class="divTableCell selfTdCell" id="p1_F10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell selfTdCell">G</div>
+                            <div class="divTableCell selfTdCell" id="p1_G1"></div>
+                            <div class="divTableCell selfTdCell" id="p1_G2"></div>
+                            <div class="divTableCell selfTdCell" id="p1_G3"></div>
+                            <div class="divTableCell selfTdCell" id="p1_G4"></div>
+                            <div class="divTableCell selfTdCell" id="p1_G5"></div>
+                            <div class="divTableCell selfTdCell" id="p1_G6"></div>
+                            <div class="divTableCell selfTdCell" id="p1_G7"></div>
+                            <div class="divTableCell selfTdCell" id="p1_G8"></div>
+                            <div class="divTableCell selfTdCell" id="p1_G9"></div>
+                            <div class="divTableCell selfTdCell" id="p1_G10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell selfTdCell">H</div>
+                            <div class="divTableCell selfTdCell" id="p1_H1"></div>
+                            <div class="divTableCell selfTdCell" id="p1_H2"></div>
+                            <div class="divTableCell selfTdCell" id="p1_H3"></div>
+                            <div class="divTableCell selfTdCell" id="p1_H4"></div>
+                            <div class="divTableCell selfTdCell" id="p1_H5"></div>
+                            <div class="divTableCell selfTdCell" id="p1_H6"></div>
+                            <div class="divTableCell selfTdCell" id="p1_H7"></div>
+                            <div class="divTableCell selfTdCell" id="p1_H8"></div>
+                            <div class="divTableCell selfTdCell" id="p1_H9"></div>
+                            <div class="divTableCell selfTdCell" id="p1_H10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell selfTdCell">I</div>
+                            <div class="divTableCell selfTdCell" id="p1_I1"></div>
+                            <div class="divTableCell selfTdCell" id="p1_I2"></div>
+                            <div class="divTableCell selfTdCell" id="p1_I3"></div>
+                            <div class="divTableCell selfTdCell" id="p1_I4"></div>
+                            <div class="divTableCell selfTdCell" id="p1_I5"></div>
+                            <div class="divTableCell selfTdCell" id="p1_I6"></div>
+                            <div class="divTableCell selfTdCell" id="p1_I7"></div>
+                            <div class="divTableCell selfTdCell" id="p1_I8"></div>
+                            <div class="divTableCell selfTdCell" id="p1_I9"></div>
+                            <div class="divTableCell selfTdCell" id="p1_I10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell selfTdCell">J</div>
+                            <div class="divTableCell selfTdCell" id="p1_J1"></div>
+                            <div class="divTableCell selfTdCell" id="p1_J2"></div>
+                            <div class="divTableCell selfTdCell" id="p1_J3"></div>
+                            <div class="divTableCell selfTdCell" id="p1_J4"></div>
+                            <div class="divTableCell selfTdCell" id="p1_J5"></div>
+                            <div class="divTableCell selfTdCell" id="p1_J6"></div>
+                            <div class="divTableCell selfTdCell" id="p1_J7"></div>
+                            <div class="divTableCell selfTdCell" id="p1_J8"></div>
+                            <div class="divTableCell selfTdCell" id="p1_J9"></div>
+                            <div class="divTableCell selfTdCell" id="p1_J10"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--// table end //-->
+
+            </div>
+
+
+            <div class="col-sm-6">
+                <div class="textCenter">
+                    <h4 class="gridTopLabel">Your Opponent</h4>
+                    <h4 class="textCenter" id="OpponentPlayerName"></h4>
+                </div>
+                <div id="shipsLeftIconsOpp" class="textCenter">
+                    <span id="oppcarrierIcon"><img src="img/carrierafloat.png"></span>
+                    <span id="oppbattleshipIcon"><img src="img/battleshipafloat.png"></span>
+                    <span id="oppsubmarineIcon"><img src="img/submarineafloat.png"></span>
+                    <span id="oppdestoyerIcon"><img src="img/destroyerafloat.png"></span>
+                    <span id="opppatrolboatIcon"><img src="img/patrolboatafloat.png"></span>
+                </div>
+                <div class="divTable oppTable">
+                    <div class="divTableBody">
+                        <div class="divTableRow">
+                            <div class="divTableCell"></div>
+                            <div class="divTableCell">1</div>
+                            <div class="divTableCell">2</div>
+                            <div class="divTableCell">3</div>
+                            <div class="divTableCell">4</div>
+                            <div class="divTableCell">5</div>
+                            <div class="divTableCell">6</div>
+                            <div class="divTableCell">7</div>
+                            <div class="divTableCell">8</div>
+                            <div class="divTableCell">9</div>
+                            <div class="divTableCell">10</div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell">A</div>
+                            <div class="oppCell divTableCell droppable" id="A1"></div>
+                            <div class="oppCell divTableCell droppable" id="A2"></div>
+                            <div class="oppCell divTableCell droppable" id="A3"></div>
+                            <div class="oppCell divTableCell droppable" id="A4"></div>
+                            <div class="oppCell divTableCell droppable" id="A5"></div>
+                            <div class="oppCell divTableCell droppable" id="A6"></div>
+                            <div class="oppCell divTableCell droppable" id="A7"></div>
+                            <div class="oppCell divTableCell droppable" id="A8"></div>
+                            <div class="oppCell divTableCell droppable" id="A9"></div>
+                            <div class="oppCell divTableCell droppable" id="A10"></div>
+
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell">B</div>
+                            <div class="oppCell divTableCell droppable" id="B1"></div>
+                            <div class="oppCell divTableCell droppable" id="B2"></div>
+                            <div class="oppCell divTableCell droppable" id="B3"></div>
+                            <div class="oppCell divTableCell droppable" id="B4"></div>
+                            <div class="oppCell divTableCell droppable" id="B5"></div>
+                            <div class="oppCell divTableCell droppable" id="B6"></div>
+                            <div class="oppCell divTableCell droppable" id="B7"></div>
+                            <div class="oppCell divTableCell droppable" id="B8"></div>
+                            <div class="oppCell divTableCell droppable" id="B9"></div>
+                            <div class="oppCell divTableCell droppable" id="B10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell">C</div>
+                            <div class="oppCell divTableCell droppable" id="C1"></div>
+                            <div class="oppCell divTableCell droppable" id="C2"></div>
+                            <div class="oppCell divTableCell droppable" id="C3"></div>
+                            <div class="oppCell divTableCell droppable" id="C4"></div>
+                            <div class="oppCell divTableCell droppable" id="C5"></div>
+                            <div class="oppCell divTableCell droppable" id="C6"></div>
+                            <div class="oppCell divTableCell droppable" id="C7"></div>
+                            <div class="oppCell divTableCell droppable" id="C8"></div>
+                            <div class="oppCell divTableCell droppable" id="C9"></div>
+                            <div class="oppCell divTableCell droppable" id="C10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell">D</div>
+                            <div class="oppCell divTableCell droppable" id="D1"></div>
+                            <div class="oppCell divTableCell droppable" id="D2"></div>
+                            <div class="oppCell divTableCell droppable" id="D3"></div>
+                            <div class="oppCell divTableCell droppable" id="D4"></div>
+                            <div class="oppCell divTableCell droppable" id="D5"></div>
+                            <div class="oppCell divTableCell droppable" id="D6"></div>
+                            <div class="oppCell divTableCell droppable" id="D7"></div>
+                            <div class="oppCell divTableCell droppable" id="D8"></div>
+                            <div class="oppCell divTableCell droppable" id="D9"></div>
+                            <div class="oppCell divTableCell droppable" id="D10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell">E</div>
+                            <div class="oppCell divTableCell droppable" id="E1"></div>
+                            <div class="oppCell divTableCell droppable" id="E2"></div>
+                            <div class="oppCell divTableCell droppable" id="E3"></div>
+                            <div class="oppCell divTableCell droppable" id="E4"></div>
+                            <div class="oppCell divTableCell droppable" id="E5"></div>
+                            <div class="oppCell divTableCell droppable" id="E6"></div>
+                            <div class="oppCell divTableCell droppable" id="E7"></div>
+                            <div class="oppCell divTableCell droppable" id="E8"></div>
+                            <div class="oppCell divTableCell droppable" id="E9"></div>
+                            <div class="oppCell divTableCell droppable" id="E10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell">F</div>
+                            <div class="oppCell divTableCell droppable" id="F1"></div>
+                            <div class="oppCell divTableCell droppable" id="F2"></div>
+                            <div class="oppCell divTableCell droppable" id="F3"></div>
+                            <div class="oppCell divTableCell droppable" id="F4"></div>
+                            <div class="oppCell divTableCell droppable" id="F5"></div>
+                            <div class="oppCell divTableCell droppable" id="F6"></div>
+                            <div class="oppCell divTableCell droppable" id="F7"></div>
+                            <div class="oppCell divTableCell droppable" id="F8"></div>
+                            <div class="oppCell divTableCell droppable" id="F9"></div>
+                            <div class="oppCell divTableCell droppable" id="F10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell">G</div>
+                            <div class="oppCell divTableCell droppable" id="G1"></div>
+                            <div class="oppCell divTableCell droppable" id="G2"></div>
+                            <div class="oppCell divTableCell droppable" id="G3"></div>
+                            <div class="oppCell divTableCell droppable" id="G4"></div>
+                            <div class="oppCell divTableCell droppable" id="G5"></div>
+                            <div class="oppCell divTableCell droppable" id="G6"></div>
+                            <div class="oppCell divTableCell droppable" id="G7"></div>
+                            <div class="oppCell divTableCell droppable" id="G8"></div>
+                            <div class="oppCell divTableCell droppable" id="G9"></div>
+                            <div class="oppCell divTableCell droppable" id="G10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell">H</div>
+                            <div class="oppCell divTableCell droppable" id="H1"></div>
+                            <div class="oppCell divTableCell droppable" id="H2"></div>
+                            <div class="oppCell divTableCell droppable" id="H3"></div>
+                            <div class="oppCell divTableCell droppable" id="H4"></div>
+                            <div class="oppCell divTableCell droppable" id="H5"></div>
+                            <div class="oppCell divTableCell droppable" id="H6"></div>
+                            <div class="oppCell divTableCell droppable" id="H7"></div>
+                            <div class="oppCell divTableCell droppable" id="H8"></div>
+                            <div class="oppCell divTableCell droppable" id="H9"></div>
+                            <div class="oppCell divTableCell droppable" id="H10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell">I</div>
+                            <div class="oppCell divTableCell droppable" id="I1"></div>
+                            <div class="oppCell divTableCell droppable" id="I2"></div>
+                            <div class="oppCell divTableCell droppable" id="I3"></div>
+                            <div class="oppCell divTableCell droppable" id="I4"></div>
+                            <div class="oppCell divTableCell droppable" id="I5"></div>
+                            <div class="oppCell divTableCell droppable" id="I6"></div>
+                            <div class="oppCell divTableCell droppable" id="I7"></div>
+                            <div class="oppCell divTableCell droppable" id="I8"></div>
+                            <div class="oppCell divTableCell droppable" id="I9"></div>
+                            <div class="oppCell divTableCell droppable" id="I10"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell">J</div>
+                            <div class="oppCell divTableCell droppable" id="J1"></div>
+                            <div class="oppCell divTableCell droppable" id="J2"></div>
+                            <div class="oppCell divTableCell droppable" id="J3"></div>
+                            <div class="oppCell divTableCell droppable" id="J4"></div>
+                            <div class="oppCell divTableCell droppable" id="J5"></div>
+                            <div class="oppCell divTableCell droppable" id="J6"></div>
+                            <div class="oppCell divTableCell droppable" id="J7"></div>
+                            <div class="oppCell divTableCell droppable" id="J8"></div>
+                            <div class="oppCell divTableCell droppable" id="J9"></div>
+                            <div class="oppCell divTableCell droppable" id="J10"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--// table end //-->
+                <div id="salvoBlock">
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+        <div id="gameRecordBlock">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div id="gameRecordSelf">
+                        <table id="gameRecordSelfTable" class="table table-striped table-dark">
+                            <col class="columnTurn">
+                            <col class="columnDamages">
+                            <thead>
+                            <th class="textCenter">Turn</th>
+                            <th>Damages on my fleet</th>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div id="gameRecordOpponent">
+                        <table id="gameRecordOppTable" class="table table-striped table-dark">
+                            <col class="columnTurn">
+                            <col class="columnDamages">
+                            <thead>
+                            <th class="textCenter">Turn</th>
+                            <th>Damages on Opponent's fleet</th>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<script src="./js/popper.min.js"></script>
+
+
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- my own files shipPlacement.js, interactsalvo.js, game.js in this order!!!-->
+
 <script src="./js/jquery-3.3.1.min.js"></script>
+<script src="./js/popper.min.js"></script>
 <script src="./js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.0/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
+<script src="./js/gridstack.js"></script>
+<script src="./js/gridstack.jQueryUI.js"></script>
+<script src="./js/interact.min1_33.js"></script>
+<script src="./js/plugins.js"></script>
+
+<script src="./js/shipPlacement.js"></script>
+<script src="./js/interactsalvo.js"></script>
 <script src="./js/game.js"></script>
 </body>
 </html>

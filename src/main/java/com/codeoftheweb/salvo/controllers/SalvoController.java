@@ -170,7 +170,7 @@ public class SalvoController {
             ship.setGamePlayer(gp);
             shipRepo.save(ship);
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(makeMap("OK", "OK"), HttpStatus.CREATED);
 
     }
 
@@ -250,36 +250,34 @@ public class SalvoController {
         int acumCarri = 0, acumBattle = 0, acumSub = 0, acumDest = 0, acumPat = 0;
         for (Salvo salvo: gp.getSalvoes()) {
             List<String> hitLocations = new ArrayList<>();
-            int contCarri = 0, contBattle = 0, contSub = 0, contDest = 0, contPat = 0, miss = 0;
+            int contCarri = 0, contBattle = 0, contSub = 0, contDest = 0, contPat = 0;
             for (Ship ship: getOpponent(gp).getShips()) {
                 List<String> similar = new ArrayList<>(salvo.getSalvoLocations());
-                similar.retainAll(ship.getShipLocations());
+                similar.retainAll(ship.getLocations());
                 int equals = similar.size();
                 if (equals != 0){
                     hitLocations.addAll(similar);
                     switch (ship.getType()){
-                        case "Carrier":
+                        case "carrier":
                             contCarri += equals;
                             acumCarri += equals;
                             break;
-                        case "Battleship":
+                        case "battleship":
                             contBattle += equals;
                             acumBattle += equals;
                             break;
-                        case "Submarine":
+                        case "submarine":
                             contSub += equals;
                             acumSub += equals;
                             break;
-                        case "Destroyer":
+                        case "destroyer":
                             contDest += equals;
                             acumDest += equals;
                             break;
-                        case "Patrol Boat":
+                        case "patrol boat":
                             contPat += equals;
                             acumPat += equals;
                             break;
-                        default:
-                            miss ++;
                     }
                 }
             }
@@ -287,7 +285,7 @@ public class SalvoController {
             dto.put("turn", salvo.getTurno());
             dto.put("hitLocations", hitLocations);
             dto.put("damages", makeDamageDTO(contCarri, contBattle, contSub, contDest, contPat, acumCarri, acumBattle, acumSub, acumDest, acumPat));
-            dto.put("missed", miss);
+            dto.put("missed", salvo.getSalvoLocations().size() - hitLocations.size());
             finalDto.add(dto);
         }
         return finalDto;
