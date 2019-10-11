@@ -114,7 +114,7 @@ public class SalvoApplication {
             Ship s21 = new Ship(gp10, "patrolboat", new HashSet<>(Arrays.asList("G6", "H6")));
 
             Ship s22 = new Ship(gp11, "destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")));
-            Ship s23 = new Ship(gp11, "Patrol Boat", new HashSet<>(Arrays.asList("C6", "C7")));
+            Ship s23 = new Ship(gp11, "patrolboat", new HashSet<>(Arrays.asList("C6", "C7")));
 
             Ship s24 = new Ship(gp13, "destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")));
             Ship s25 = new Ship(gp13, "patrolboat", new HashSet<>(Arrays.asList("C6", "C7")));

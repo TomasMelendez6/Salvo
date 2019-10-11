@@ -69,21 +69,81 @@ public class SalvoController {
         }
     }
 
-    /*DTO para obtener datos de el game correspondente al gamePlayer que utiliza el metodo,
-     * brinda informacion sobre ambos gp relacionados al game en cuestion,
-     * tambien contiene dto de los ships gp principal y sus salvoes.
+    /*DTO to get the data of the logged gamePlayer,
+     * bring information from both gamePlayer in the same game,
+     * also contain the ship and salvo dto of the logged gamePlayer.
      * */
     public Map<String, Object> makeGameViewDTO(Authentication authentication, GamePlayer gp) {
         Map<String, Object> dto = new LinkedHashMap<>();
         dto.put("id", gp.getGame().getId());
         dto.put("created", gp.getGame().getCreationDate());
-        dto.put("gameState", "PLACESHIPS");
+        dto.put("gameState", gatGameState(gp));
         dto.put("gamePlayers", getAllGamePlayersDTO(gp.getGame().getGamePlayers()));
         dto.put("ships", getAllShips(gp.getShips()));
         dto.put("salvoes", getAllSalvoesFromGamePlayersDTO(gp.getGame().getGamePlayers()));
         dto.put("hits", makeHitsDTO(gp));
         return dto;
 
+    }
+    /*DTO to get the state of the current game.
+    *the game of the logged player.
+     */
+    private String gatGameState(GamePlayer gp) {
+        final int TOTAL_SHIP = 17;
+        GamePlayer opp = getOpponent(gp);
+
+
+        if(gp.getShips().isEmpty()){
+            return "PLACESHIPS";
+        }
+        if(opp == null){
+            return "WAITINGFOROPP";
+        }
+        if(opp.getShips().isEmpty()){
+            return "WAIT";
+        }
+
+        int selfSalvoes = gp.getSalvoes().size(), oppSalvoes = opp.getSalvoes().size();
+        if(selfSalvoes <= oppSalvoes && !gameOver(gp, opp, TOTAL_SHIP)){// && !gameOver(gp)){
+            return "PLAY";
+        }
+        if (selfSalvoes > oppSalvoes && !gameOver(gp, opp, TOTAL_SHIP)){
+            return "WAIT";
+        }
+
+        int totOpp = getTotal(opp), totSelf = getTotal(gp);
+        if(totOpp == TOTAL_SHIP && totSelf < TOTAL_SHIP){
+            return "WON";
+        }
+
+        if(totOpp == TOTAL_SHIP && totSelf == TOTAL_SHIP){
+            return "TIE";
+        }
+        return "LOST";
+
+    }
+
+    private boolean gameOver(GamePlayer gp, GamePlayer opp, int largo) {
+        if(getTotal(gp) == largo || getTotal(opp) == largo){
+            return true;
+        }
+        return false;
+    }
+
+    private int getTotal(GamePlayer gp) {
+        GamePlayer opp = getOpponent(gp);
+        List<String> ships = new ArrayList<>();
+        List<String> salvoes = new ArrayList<>();
+        for (Ship ship: gp.getShips()) {
+            ships.addAll(ship.getLocations());
+        }
+        for (Salvo salvo: getOpponent(gp).getSalvoes()) {
+            salvoes.addAll(salvo.getSalvoLocations());
+        }
+
+        ships.retainAll(salvoes);
+        int total = ships.size();
+        return total;
     }
 
     //method to register a new player. it will need a username and a psw.
@@ -176,7 +236,7 @@ public class SalvoController {
 
     //Method for the "add salvos" button in the front end.
     //this method will verify the player credentials.
-    @RequestMapping(path = "/games/players/{gamePlayerId}/salvos" , method = RequestMethod.POST)
+    @RequestMapping(path = "/games/players/{gamePlayerId}/salvoes" , method = RequestMethod.POST)
     public ResponseEntity<Object> addSalvos(Authentication authentication,
                                            @PathVariable long gamePlayerId,
                                            @RequestBody Salvo salvo){
@@ -192,13 +252,12 @@ public class SalvoController {
         }
         Set<Salvo> salvoes = gp.getSalvoes();
         for (Salvo salvo1:salvoes) {
-            if(salvo.getTurno() == salvo1.getTurno()){      //Verifying if this turn already has salvos.
+            if(salvo.getTurno() == salvo1.getTurno() || gp.getSalvoes().size() > getOpponent(gp).getSalvoes().size()){      //Verifying if this turn already has salvos.
                 return new ResponseEntity<>(makeMap("error", "the user already has submitted a salvo for the turn listed"), HttpStatus.FORBIDDEN );
             }
         }
-        salvo.setGamePlayer(gp);
-        salvoRepo.save(salvo);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        salvoRepo.save(new Salvo(salvoes.size()+1, gp, salvo.getSalvoLocations()));
+        return new ResponseEntity<>(makeMap("OK", "you can fire salvoes"), HttpStatus.CREATED);
 
     }
 
@@ -225,8 +284,8 @@ public class SalvoController {
         GamePlayer opponent = getOpponent(gamePlayer);
         Map<String, Object> hits = new LinkedHashMap<>();
         if (opponent != null){
-            hits.put("self", getAllHits(gamePlayer));
-            hits.put("opponent", getAllHits(opponent));
+            hits.put("self", getAllHits(opponent));
+            hits.put("opponent", getAllHits(gamePlayer));
         }
         else {
             hits.put("self", new ArrayList<>());
@@ -274,7 +333,7 @@ public class SalvoController {
                             contDest += equals;
                             acumDest += equals;
                             break;
-                        case "patrol boat":
+                        case "patrolboat":
                             contPat += equals;
                             acumPat += equals;
                             break;

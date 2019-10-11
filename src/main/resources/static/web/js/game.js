@@ -202,7 +202,7 @@ function showSelf (gamePlayerData) {
 
 
     gamePlayerData.ships.forEach(function(ship) {
-
+        ship.locations   =   ship.locations.sort();
         let firstCellID;
         firstCellID = "#p1_" + ship.locations[0];
         if (ship.locations[0].substring(1) === ship.locations[1].substring(1)) {
