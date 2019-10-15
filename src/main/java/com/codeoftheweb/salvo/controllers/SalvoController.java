@@ -35,6 +35,9 @@ public class SalvoController {
     @Autowired
     private SalvoRepository salvoRepo;
 
+    @Autowired
+    private ScoreRepository scoreRepo;
+
     //Methods
     /*DTO of player information
     *also contains the information from all the games
@@ -89,9 +92,8 @@ public class SalvoController {
     *the game of the logged player.
      */
     private String gatGameState(GamePlayer gp) {
-        final int TOTAL_SHIP = 17;
+        final int TOTAL_SHIP = 17, MAX_SCORES = 2;
         GamePlayer opp = getOpponent(gp);
-
 
         if(gp.getShips().isEmpty()){
             return "PLACESHIPS";
@@ -99,33 +101,40 @@ public class SalvoController {
         if(opp == null){
             return "WAITINGFOROPP";
         }
-        if(opp.getShips().isEmpty()){
-            return "WAIT";
-        }
 
         int selfSalvoes = gp.getSalvoes().size(), oppSalvoes = opp.getSalvoes().size();
         if(selfSalvoes <= oppSalvoes && !gameOver(gp, opp, TOTAL_SHIP)){// && !gameOver(gp)){
             return "PLAY";
         }
-        if (selfSalvoes > oppSalvoes && !gameOver(gp, opp, TOTAL_SHIP)){
-            return "WAIT";
-        }
+        if(gameOver(gp, opp, TOTAL_SHIP)){
+            int totOpp = getTotal(opp), totSelf = getTotal(gp);
+            if(totOpp == TOTAL_SHIP && totSelf < TOTAL_SHIP){
+                if(gp.getGame().getScores().size() < MAX_SCORES){
+                    scoreRepo.save(new Score(gp.getGame(), gp.getPlayer(), 1,new Date()));
+                }
+                return "WON";
+            }
 
-        int totOpp = getTotal(opp), totSelf = getTotal(gp);
-        if(totOpp == TOTAL_SHIP && totSelf < TOTAL_SHIP){
-            return "WON";
+            if(totOpp == TOTAL_SHIP && totSelf == TOTAL_SHIP){
+                if(gp.getGame().getScores().size() < MAX_SCORES){
+                    scoreRepo.save(new Score(gp.getGame(), gp.getPlayer(), 0.5,new Date()));
+                }
+                return "TIE";
+            }
+            if(gp.getGame().getScores().size() < MAX_SCORES){
+                scoreRepo.save(new Score(gp.getGame(), gp.getPlayer(), 0,new Date()));
+            }
+            return "LOST";
         }
-
-        if(totOpp == TOTAL_SHIP && totSelf == TOTAL_SHIP){
-            return "TIE";
-        }
-        return "LOST";
+        return "WAIT";      //selfSalvoes > oppSalvoes ---> opponent turn!
 
     }
 
     private boolean gameOver(GamePlayer gp, GamePlayer opp, int largo) {
-        if(getTotal(gp) == largo || getTotal(opp) == largo){
-            return true;
+        if(gp.getSalvoes().size() == opp.getSalvoes().size()){
+            if(getTotal(gp) == largo || getTotal(opp) == largo){
+                return true;
+            }
         }
         return false;
     }
@@ -137,13 +146,12 @@ public class SalvoController {
         for (Ship ship: gp.getShips()) {
             ships.addAll(ship.getLocations());
         }
-        for (Salvo salvo: getOpponent(gp).getSalvoes()) {
+        for (Salvo salvo: opp.getSalvoes()) {
             salvoes.addAll(salvo.getSalvoLocations());
         }
 
         ships.retainAll(salvoes);
-        int total = ships.size();
-        return total;
+        return ships.size();
     }
 
     //method to register a new player. it will need a username and a psw.
@@ -196,7 +204,7 @@ public class SalvoController {
             return new ResponseEntity<>(makeMap("error", "No such game"), HttpStatus.FORBIDDEN);
         }
         if(getAllGamePlayersDTO(cg.getGamePlayers()).toString().contains(authentication.getName())){
-            return new ResponseEntity<>("You can't play against yourself", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(makeMap("error", "You can't play against yourself"), HttpStatus.FORBIDDEN);
         }
         if(cg.getGamePlayers().stream().count() > 1){
             return new ResponseEntity<>(makeMap("error", "Game is full"), HttpStatus.FORBIDDEN);
@@ -249,6 +257,9 @@ public class SalvoController {
         }
         if(gp.getPlayer().getId() != playerRepo.findByUserName(authentication.getName()).getId()){
             return new ResponseEntity<>(makeMap("error", "the current user is not the game player the ID references"), HttpStatus.UNAUTHORIZED);
+        }
+        if(salvo.getSalvoLocations().size() > 5){
+            return new ResponseEntity<>(makeMap("error", "you cant fire more than 5 salvoes"), HttpStatus.UNAUTHORIZED);
         }
         Set<Salvo> salvoes = gp.getSalvoes();
         for (Salvo salvo1:salvoes) {
@@ -412,8 +423,6 @@ public class SalvoController {
                 .map(salvo -> salvo.makeSalvoDTO())
                 .collect(Collectors.toList());
     }
-
-
 
 }
 
