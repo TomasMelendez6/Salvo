@@ -22,7 +22,6 @@ public class Game {
     private Set<Score> scores;
 
 
-
     //Constructors
     public Game() {
     }

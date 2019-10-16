@@ -1,13 +1,9 @@
 package com.codeoftheweb.salvo.models;
 
-import com.codeoftheweb.salvo.models.GamePlayer;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Salvo {
@@ -26,7 +22,6 @@ public class Salvo {
     @ElementCollection
     @Column(name="salvoLocations")
     private Set<String> salvoLocations = new HashSet<>();
-
     //Constructors
     public Salvo() {
     }

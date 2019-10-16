@@ -2,14 +2,12 @@ package com.codeoftheweb.salvo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.security.core.Authentication;
 
 import javax.persistence.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
-public class GamePlayer {
+public class GamePlayer{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -30,7 +28,7 @@ public class GamePlayer {
     private Set<Ship> ships;
 
     @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
-    private Set<Salvo> salvoes;
+    private Set<Salvo> salvoes = new LinkedHashSet<>();
 
 
 
